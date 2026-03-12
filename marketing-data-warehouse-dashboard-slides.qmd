@@ -564,3 +564,54 @@ Open the floor for any final questions. Tell them they can access these links in
 :::
 
 
+
+
+# Feedback Notes
+
+Sell them more on why we need bigquery&looker studio vs GA4
+- data duration in ga4 is limited(14 months), makes sense if historical data is important to the org
+- in ga4, ML is used to process data, which is then shown to you
+- limitation in ga4 reports(they are premade tempates), if you want to investigae further, you ahve to pull out your data
+
+
+Explain Cost/Usage in Google Cloud/BigQuery. example costs for a typical query.
+
+Signup process if they have never used bigquery before?
+
+Use correct/more accurate term for Columnar storage/cloud
+
+How to connect Google ads to bigquery. MSDM data?
+
+SQL: slow down in first few examples. first example should be simple, type in by hand. expand and modify off of the base simple script. 
+- discuss what is sql, and the various dialetcs, GoogleSQL vs others
+- other resources to learn SQL with
+- explain syntax of FROM statement for ga4 data, wildcard used because it covers all dates
+
+Explain how date filter works for lookerstudio. MAke sure to pass in date range largeer than frame you want to look at.
+
+
+Tweak for more hands on engagement
+
+Use icognito for examples to mimic them
+
+Do more frequent checks for understanding and ask for questions
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
