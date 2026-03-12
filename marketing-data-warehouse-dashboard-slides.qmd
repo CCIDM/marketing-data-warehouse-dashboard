@@ -32,7 +32,7 @@ format:
 ## Introduction & Orientation
 
 ::: {.callout-tip}
-## Live slides available at <https://ccidm.github.io/measurement-stack-workshop-slides/bq-looker-workshop-slides.html>
+## Live slides available at <https://ccidm.github.io/marketing-data-warehouse-dashboard/marketing-data-warehouse-dashboard-slides.html>
 :::
 
 - **The Objective:** Moving from marketing theory to Marketing Operations.
