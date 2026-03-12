@@ -1,0 +1,418 @@
+---
+title: "Building a Marketing Data Warehouse & Dashboard"
+subtitle: "BigQuery, SQL, & Looker Studio"
+author: "Jarrod Griffin"
+institute: "College of Business Administration - Cal Poly Pomona"
+date: "today"
+date-format: "M/D/YYYY"
+format:
+  revealjs:
+    center: false
+    logo: "logos/ccidm-cpp logo.png"
+    theme: [default, theme.scss]
+    slide-number: true
+    toc: true
+    toc-depth: 1
+    code-link: true
+    link-external-newwindow: true
+    #chalkboard: true #cannot use with self-contained
+    embed-resources: true
+    multiplex: true
+    width: 1600
+    height: 900
+    margin: 0.1
+    minScale: 0.2
+    maxScale: 2.0
+    scrollable: true
+    incremental: true
+    navigation-mode: linear
+
+---
+
+## Introduction & Orientation
+
+::: {.callout-tip}
+## Live slides available at <https://ccidm.github.io/measurement-stack-workshop-slides/bq-looker-workshop-slides.html>
+:::
+
+- **The Objective:** Moving from marketing theory to Marketing Operations.
+- **The Career Impact:** Digital marketing produces massive amounts of data. Spreadsheets crash; cloud databases scale. Knowing SQL and cloud architecture sets you apart from standard marketers.
+- **The Goal:** Gaining the ability to build a "single source of truth" and automate a decision-ready dashboard.
+
+::: {.notes}
+"So, why are we here?
+
+In your classes, you spend a lot of time on Marketing Theory—the 4 Ps, consumer behavior, segmentation. That is the 'Art' of marketing.
+
+Today, we are moving into Marketing Operations. This is the 'Science.'
+
+Employers aren't just looking for people who can copy-paste numbers from Google Analytics into Excel every week. They need people who can manage massive datasets and automate that reporting. Spreadsheets crash; cloud databases scale. Knowing how to write SQL and operate cloud architecture sets you apart from the average entry-level marketer. 
+
+The goal is simple: We are moving you from 'Spreadsheet Cruncher' to 'Data Automator' by building a single source of truth today."
+:::
+
+
+## Agenda
+
+- Introduction & Orientation (5 Min)
+- **Conceptual Framework (10 Min):** The Modern Data Stack (GA4 to BigQuery)
+- **Technical Implementation (15 Min):** BigQuery Orientation & Data Import
+- **Querying Data (25 Min):** Core SQL Patterns & AI Assistance (Gemini)
+- **Modeling for Reporting (5 Min):** Creating Views 
+- **Visualization (15 Min):** Building a Looker Studio Dashboard
+
+
+::: {.notes}
+"Here is our roadmap for the next 75 minutes.
+
+1.  **Conceptual Framework:** We’ll start with the big picture—why we are moving out of the GA4 interface and into the cloud.
+2.  **Technical Implementation:** This is the hands-on part. We will set up a free BigQuery sandbox and upload our offline campaign budgets.
+3.  **Querying Data:** We will write actual SQL code to ask questions of our data, and we'll learn how to use AI—specifically Gemini—as a coding partner.
+4.  **Modeling for Reporting:** We’ll learn how to package our code into a 'View' to save processing costs.
+5.  **Visualization:** Finally, we’ll connect our database to Looker Studio and build an automated dashboard."
+:::
+
+---
+
+## Learning Outcomes:
+
+After taking this workshop, participants should be able to:
+
+:::: {.columns}
+::: {.column width="50%"}
+1.	**Create a Free Marketing Database:** Set up a Google BigQuery "Sandbox" environment to store data without needing a credit card.
+2.	**Combine Multiple Data Sources:** Upload spreadsheet data (campaign budgets) into the cloud and merge it with live Google Analytics data.
+3.	**Ask Questions with Code:** Use basic SQL commands (like `SELECT` and `WHERE`) to filter data and find specific answers.
+:::
+::: {.column width="50%"}
+4.	**Calculate Real ROI:** "Join" your ad spend data with your performance data to calculate true metrics like Cost Per Acquisition (CPA).
+5.	**Use AI as a Coding Partner:** Use Gemini inside BigQuery to write complex SQL code for you and check it for errors.
+6.	**Build an Automated Dashboard:** Connect Looker Studio to your database to create a visual report that updates automatically.
+:::
+
+::::
+
+::: {.notes}
+"If you zone out, here is what you need to walk away with.
+
+On the left, we have the **Data Engineering**: You will learn how to spin up a free cloud database, merge offline budget CSVs with live website data, and write basic SQL to ask questions of that data.
+
+On the right, we have the **Business Intelligence**: You’ll learn how to calculate true ROI by joining datasets, use AI to write the hard code for you, and publish an automated Looker Studio dashboard so you never have to build a weekly report manually again.
+
+If you can do these six things, you have highly technical, resume-ready skills."
+:::
+
+---
+
+## Who Needs This Workshop?
+
+Digital marketing roles fall into **4 categories**, and each needs this data stack differently.
+
+:::: {.columns}
+
+::: {.column width="50%"}
+::: {.fragment}
+### 1. Content & Creative
+*(Writers, Social, Designers)*
+
+* **Focus:** The "What" (Assets & Copy).
+* **Why:** You need to see how your creative performs over time. Dashboards built in **Looker Studio** allow you to filter by specific campaigns to prove your assets drive revenue.
+
+:::
+
+::: {.fragment}
+### 2. Technical & Performance
+*(SEO, PPC, Email Specialists)*
+
+* **Focus:** The "How" (Algorithms & Spend).
+* **Why:** You live and die by ROI. You need **SQL** to join what you spent in Google Ads with the actual purchases in GA4 to calculate true Cost Per Acquisition (CPA).
+
+:::
+
+:::
+
+::: {.column width="50%"}
+::: {.fragment}
+### 3. Data & Analytics
+*(Analysts, Data Scientists)*
+
+* **Focus:** Measurement & Prediction.
+* **Why:** This is your core job. You need to master **BigQuery** to clean raw data, write efficient `VIEW`s, and manage the "single source of truth" for the whole company.
+
+:::
+
+::: {.fragment}
+### 4. Strategy & Leadership
+*(Managers, CMOs)*
+
+* **Focus:** Planning & Budgeting.
+* **Why:** You make high-stakes budget decisions. You cannot wait for a manual Excel report on Friday. You need live, automated **Dashboards** to see where the money is going today.
+
+:::
+
+:::
+
+::::
+
+::: aside
+Source: [CPP MSDM Career Outlook - Typical Job Titles](https://www.cppmsdm.com/career_outlook_salary_digital_marketing#typical-job-titles)
+:::
+
+::: {.notes}
+"I often hear, 'I'm a creative, I don't need to know SQL or databases.' That is incorrect. Digital marketing roles fall into four categories, and *all* of them rely on this stack.
+
+1.  **Content & Creative:** If you design ads, you need **Looker Studio** dashboards to prove your specific creative drove revenue, not just clicks.
+2.  **Technical & Performance:** If you do PPC, you need **SQL** to join your Google Ads spend with your GA4 conversion data. That's the only way to calculate true Cost Per Acquisition.
+3.  **Data & Analytics:** For the analysts, **BigQuery** is your home. You are the ones building the 'views' and pipelines that the rest of the company relies on.
+4.  **Strategy & Leadership:** For the future managers, you hold the budget. You can't make decisions based on last week's Excel sheet. You need the live **Automated Dashboards** we are building today."
+:::
+
+
+## Conceptual Framework
+### The Modern Data Stack
+
+**The Shift from GA4 UI to Cloud Storage:**
+
+- **GA4 UI:** Great for quick questions. Bad for historical ownership, blending offline data, or custom metrics.
+- **BigQuery (BQ):** A massive, scalable filing cabinet. *We own the data here.*
+
+. . .
+
+**How Cloud Compute Works:**
+- **Columnar Storage:** Data is stored by columns, not rows.
+- **The Golden Rule:** `SELECT *` is an expensive sin! Only pull the columns you need.
+
+::: {.notes}
+Explain why we don't just use the Google Analytics dashboard. The UI is limited—you can't easily join your ad spend data or historical data. BigQuery solves this.
+Crucial concept to explain: Columnar storage. Contrast it with Excel (row-based). Because BigQuery charges by the amount of data processed, doing a "SELECT *" (select all columns) scans the whole database and costs a lot of money in the real world. We only select what we need!
+:::
+
+## The BigQuery Hierarchy
+
+Think of BigQuery like a physical office:
+
+<br>
+
+1. **Project** 🏠 *(The House - e.g., `ccidm-spring2026`)*
+2. **Dataset** 🚪 *(The Room - e.g., `marketing_data`)*
+3. **Table** 🗄️ *(The Filing Cabinet - e.g., `budget_lookup`)*
+
+::: {.notes}
+Students often get lost in cloud terminology. Use this metaphor slowly. 
+When we open Google Cloud Console, we are building a House (Project). Inside that house, we dedicate a Room for marketing (Dataset). Inside that room, we put our Filing Cabinets (Tables) that actually hold the data.
+:::
+
+## Hands-On: BigQuery Orientation
+
+### Step 1: The Sandbox Setup
+1. Navigate to **Google Cloud Console**.
+2. Create a new Project: `ccidm-spring2026-sandbox`.
+3. Pin **BigQuery** to your navigation menu.
+
+*No credit card required for Sandbox environments!*
+
+::: {.notes}
+Have everyone open their laptops and follow along. 
+Reassure them heavily here: The "Sandbox" environment is completely free and requires no credit card. It is perfect for learning without fear of generating a massive cloud bill. Pause and make sure everyone gets to the BigQuery interface.
+:::
+
+## Understanding Ingestion Pathways
+
+How does data get into our house?
+
+- **GA4 Export:** Free, daily export of raw, event-level data.
+- **Google Ads Data Transfer Service (DTS):** 
+  - *Why do we need this if Ads is linked to GA4?*
+  - GA4 gives session/attribution data.
+  - DTS gives impressions, clicks, and *cost* at the ad-group level!
+
+::: {.notes}
+Briefly explain how enterprise data flows. 
+Address a common point of confusion: "If GA4 is linked to Google Ads, why do I need a separate connection from Ads to BigQuery?" 
+Answer: Because GA4 only cares about what happened on the website (sessions). To calculate ROAS and CPA, we need the actual money spent (cost), impressions, and clicks—which only comes directly from the Ads Data Transfer Service.
+:::
+
+## Hands-On: Manual Upload
+
+Let's bring in our offline campaign budgets.
+
+1. Create a **Dataset** called `marketing_data`.
+2. Click **Add > Local File**.
+3. Upload `campaign_budgets.csv`.
+4. Check **"Auto-detect schema"**.
+5. Name the table `budget_lookup`.
+
+::: {.notes}
+Guide them through the UI. Have them download the CSV file provided for the workshop. 
+Explain "Auto-detect schema"—this is BigQuery smartly figuring out if a column is text, a number, or a date without us having to code it manually.
+:::
+
+## Querying Data with SQL
+### Core SQL Patterns
+
+We will query the public `ga4_obfuscated_sample_ecommerce` dataset.
+
+```sql
+SELECT 
+  traffic_source.medium,
+  SUM(ecommerce.purchase_revenue) as total_revenue
+FROM `bigquery-public-data.ga4_obfuscated_sample_ecommerce.events_*`
+WHERE event_name = 'purchase'
+GROUP BY traffic_source.medium
+ORDER BY total_revenue DESC
+LIMIT 10;
+```
+
+* **SELECT:** What do I want?
+* **FROM:** Where is it?
+* **WHERE:** How do I filter it?
+* **GROUP BY:** How do I aggregate it?
+
+::: {.notes}
+Have the students copy/type this into their query editor. We are using Google's public sample dataset so everyone has rich data to look at.
+Walk through the 4 core verbs: SELECT, FROM, WHERE, GROUP BY. This is 90% of the SQL they will use in their marketing careers.
+:::
+
+## The "Marketer's Join"
+### Calculating True ROI
+
+Let's combine our live web performance with our static budgets.
+
+```sql
+SELECT 
+  ga.utm_campaign,
+  ga.purchases,
+  b.spend,
+  (b.spend / ga.purchases) AS CPA
+FROM `marketing_data.ga4_aggregate` AS ga
+LEFT JOIN `marketing_data.budget_lookup` AS b
+  ON ga.utm_campaign = b.utm_campaign
+```
+
+*We are creating Cost Per Acquisition (CPA) on the fly!*
+
+::: {.notes}
+Explain why the "Join" is the superpower of SQL. Excel VLOOKUPs crash with millions of rows; SQL joins handle them in seconds. 
+Point out the math in the SELECT statement: `spend / purchases`. We are taking data from two totally different platforms and calculating our Cost Per Acquisition right here in the code.
+:::
+
+## AI-Assisted Querying (Gemini)
+
+GA4 data is heavily nested (Arrays). Extracting `page_location` requires `UNNEST`, which is notoriously difficult. Let's use AI responsibly.
+
+**Try this prompt in BigQuery's Gemini pane:**
+
+> *"Write a BigQuery SQL query using the `ga4_obfuscated_sample_ecommerce` dataset. Find the total number of 'purchase' events grouped by the user's device category. Show me how to `UNNEST` the `event_params` if necessary."*
+
+. . .
+
+**Always validate the logic before running!**
+
+::: {.notes}
+Introduce AI as a coding partner, not a crutch. 
+Explain that Google Analytics stores data in "Arrays" (lists within lists). Getting data out of them requires a command called UNNEST, which is very hard for beginners. 
+Have them run the prompt, look at the code Gemini generates, paste it, and run it. Remind them: AI hallucinates, always read the code before you run it!
+:::
+
+## Modeling for Reporting
+
+**The Bridge to BI: Creating a View**
+
+*Why?* We do NOT want Looker Studio querying a 10-Terabyte raw table every time someone clicks a filter. It is slow and costs money.
+
+```sql
+CREATE OR REPLACE VIEW marketing_data.v_campaign_performance AS (
+  --[Paste our clean, joined ROI query here]
+);
+```
+*A view acts as a "virtual table" perfectly formatted for your dashboard.*
+
+::: {.notes}
+Explain the concept of a "View." 
+If we hook Looker Studio straight up to raw GA4 data, every time your boss changes the date filter, Looker runs a massive query. The dashboard will be slow, and the cloud bill will be huge.
+By wrapping our query in a VIEW, we create a pre-calculated, clean table specifically meant for the dashboard to read easily.
+:::
+
+## Visualizing in Looker Studio
+### Step 1: The Connection
+
+1. Go to **lookerstudio.google.com**.
+2. Create a **Blank Report**.
+3. Select **BigQuery** as your data connector.
+4. Navigate to: `ccidm-spring2026-sandbox` > `marketing_data` > `v_campaign_performance`.
+
+::: {.notes}
+Transition from data engineering back to visual analytics. 
+Have everyone log into Looker Studio. Walk the room to make sure everyone successfully connects their BigQuery View to the new Looker Studio report.
+:::
+
+## Visualizing in Looker Studio
+### Step 2: Building the Dashboard
+
+:::: {.columns}
+
+::: {.column width="50%"}
+**Visuals to Add:**
+- **Time Series:** Conversions & Spend over time.
+- **Scorecards:** Total Spend, Total Revenue, Overall ROAS.
+- **Controls:** Date Range, Campaign Dropdown.
+:::
+
+::: {.column width="50%"}
+**Calculated Fields:**
+- You can calculate `SUM(Revenue)/SUM(Spend)` directly in Looker Studio.
+- *Discussion: When should we calculate in SQL vs. Looker Studio?*
+:::
+
+::::
+
+::: {.notes}
+Let them have some fun building the actual dashboard visuals. 
+Bring up the discussion point: "If we can calculate ROI in SQL, why do it in Looker?" 
+Answer: If a metric needs to recalculate dynamically based on dashboard filters (like an aggregate Conversion Rate for only a specific date range), it's often better to calculate it in Looker Studio using SUM() formulas. If it's a static row-level calculation, do it in SQL.
+:::
+
+## Summary
+
+Today we transformed from theoretical marketers to data operators.
+
+✅ Set up a cloud database (BigQuery) <br>
+✅ Uploaded and joined disparate data sources <br>
+✅ Wrote SQL with AI assistance <br>
+✅ Modeled a virtual table (View) <br>
+✅ Automated a dynamic Looker Studio dashboard <br>
+
+::: {.notes}
+Recap the massive amount of work they just accomplished. They built a professional-grade marketing data pipeline in under two hours. Encourage them to list these specific tools (BigQuery, SQL, Looker Studio) on their resumes and LinkedIn profiles.
+:::
+
+## Looking Ahead: Workshop 3
+
+**Scalable Customer & Campaign Analysis in R**
+
+What happens when you need to run deep customer cohort analysis or funnel drop-offs, and spreadsheets crash?
+
+Next time, we tackle "Big-ish Data" on your local machine using **R, DuckDB, and Arrow**. 
+
+::: {.notes}
+Tease the next workshop. Dashboards are great for monitoring, but what about deep analytics? 
+Next time, we move out of SQL and into R to do advanced cohort tracking and funnel analysis using local database engines.
+:::
+
+## Q&A and Resources
+
+**Thank You!**
+
+**Helpful Links:**
+-[BigQuery Sandbox Setup](https://cloud.google.com/bigquery/docs/sandbox)
+-[GA4 BigQuery Export Schema](https://support.google.com/analytics/answer/7029846)
+- [Write SQL with Gemini](https://cloud.google.com/bigquery/docs/write-queries-with-gemini)
+- [Looker Studio Connection Guide](https://support.google.com/looker-studio/answer/6370296)
+
+*Center for Customer Insight and Digital Marketing*
+
+::: {.notes}
+Open the floor for any final questions. Tell them they can access these links in the workshop materials to reference later. Thank them for coming!
+:::
+
+
