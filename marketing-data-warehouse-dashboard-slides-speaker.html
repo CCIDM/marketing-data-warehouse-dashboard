@@ -1238,6 +1238,7 @@ display:block!important;
 <h3 id="demystifying-the-cloud">Demystifying “The Cloud”</h3>
 <div class="columns">
 <div class="column" style="width:50%;">
+<div class="fragment">
 <p><strong>The “Big Three” Cloud Providers</strong></p>
 <p>When companies say they “use the cloud,” they are just renting massive computers from one of three tech giants:</p>
 <ol type="1">
@@ -1245,14 +1246,19 @@ display:block!important;
 <li class="fragment"><strong>Microsoft Azure</strong></li>
 <li class="fragment"><strong>Google Cloud Platform (GCP)</strong> <em>(What we are using today)</em></li>
 </ol>
+</div>
 </div><div class="column" style="width:50%;">
+<div class="fragment">
 <p><strong>What is BigQuery?</strong> BigQuery is a specific product <em>inside</em> Google Cloud. It is a fully managed <strong>Enterprise Data Warehouse</strong>.</p>
 <ul>
 <li class="fragment"><strong>The AWS Equivalent:</strong> Amazon Redshift</li>
 <li class="fragment"><strong>The Azure Equivalent:</strong> Azure Synapse</li>
 <li class="fragment"><strong>Independent Competitor:</strong> Snowflake</li>
 </ul>
+</div>
+<div class="fragment">
 <p><em>Think of Google Cloud as the giant digital office building, and BigQuery is the massive, ultra-secure filing cabinet we are renting inside of it.</em></p>
+</div>
 </div></div>
 <aside class="notes">
 <p>“Before we actually log into Google Cloud, let’s establish what it is.</p>
@@ -1370,17 +1376,25 @@ display:block!important;
 <p><strong>Columnar Storage &amp; The Cost of Querying:</strong></p>
 <div class="columns">
 <div class="column" style="width:50%;">
+<div class="fragment">
 <p><strong>Excel (Row-Based):</strong></p>
 <p>Reads data row by row, left to right. Great for finding <em>one specific customer’s</em> entire profile.</p>
+</div>
+<div class="fragment">
 <p><strong>BigQuery (Columnar):</strong></p>
 <p>Stores data by columns. If you only want to calculate “Total Revenue,” the computer <strong>completely ignores</strong> the other 100 columns.</p>
+</div>
 </div><div class="column" style="width:50%;">
+<div class="fragment">
 <p><strong>The Cost of BigQuery:</strong></p>
 <ul>
 <li class="fragment"><strong>Storage:</strong> ~$0.02 per Gigabyte.</li>
 <li class="fragment"><strong>Compute (Querying):</strong> The first <strong>1 Terabyte (TB)</strong> of data queried every month is <strong>FREE</strong>. After that, it’s ~$6.25 per TB.</li>
 </ul>
-<p>🔥 <strong>The Golden Rule:</strong> <code>SELECT *</code> scans every single column in the database. In the real world, this costs your company real money. <strong>Only SELECT the columns you need!</strong></p>
+</div>
+<div class="fragment">
+<p><strong>The Golden Rule:</strong> <code>SELECT *</code> scans every single column in the database. In the real world, this costs your company real money. <strong>Only SELECT the columns you need!</strong></p>
+</div>
 </div></div>
 <aside class="notes">
 <p>Explain Columnar storage with a visual aid: Imagine a phone book. If I ask you “Find John Smith’s number,” you scan row-by-row. But if I ask “What is the most common area code in the whole book?”, you don’t care about names or addresses. Columnar databases let the computer instantly rip out just the “Area Code” column and do the math, saving massive amounts of computing power and money.</p>
@@ -1832,7 +1846,7 @@ display:block!important;
 <span id="cb6-16"><a href></a>  b.channel,</span>
 <span id="cb6-17"><a href></a>  ga.purchases,</span>
 <span id="cb6-18"><a href></a>  b.spend,</span>
-<span id="cb6-19"><a href></a>  b.revenue</span>
+<span id="cb6-19"><a href></a>  ga.revenue</span>
 <span id="cb6-20"><a href></a><span class="kw">FROM</span> `marketing_data.budget_lookup` <span class="kw">AS</span> b</span>
 <span id="cb6-21"><a href></a><span class="kw">LEFT</span> <span class="kw">JOIN</span> ga4_aggregate <span class="kw">AS</span> ga</span>
 <span id="cb6-22"><a href></a>  <span class="kw">ON</span> b.channel <span class="op">=</span> ga.channel</span>
@@ -1914,7 +1928,7 @@ display:block!important;
 </div><div class="column" style="width:50%;">
 <p><strong>Calculated Fields:</strong></p>
 <ul>
-<li class="fragment">You can calculate <code>SUM(Revenue)/SUM(Spend)</code> directly in Looker Studio.</li>
+<li class="fragment">You can calculate <code>SUM(Revenue)/MAX(Spend)</code> directly in Looker Studio.</li>
 <li class="fragment"><em>Discussion: When should we calculate in SQL vs. Looker Studio?</em></li>
 </ul>
 </div></div>
