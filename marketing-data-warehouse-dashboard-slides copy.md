@@ -365,15 +365,14 @@ Reassure them heavily here: The "Sandbox" environment is completely free and req
 
 ## Understanding Ingestion Pathways
 
-How does data get into our warehouse?
+How does data get into our house?
 
 - **GA4 Export:** Free, daily export of raw, event-level data.
 - **Manual Upload:** Manually upload data files (CSVs).
 - **Google Ads Data Transfer Service (DTS):** 
   - *Why do we need this if Ads is already linked to GA4?*
   - GA4 gives session/attribution data.
-  - DTS gives impressions, clicks, and *cost* at the ad-group level.
-
+  - DTS gives impressions, clicks, and *cost* at the ad-group level. It takes just 3 clicks in the Cloud Console to automate overnight!
 
 ::: {.notes}
 Briefly explain how enterprise data flows. 
@@ -408,8 +407,6 @@ Because it takes 24 hours for the first batch of data to arrive, we can't query 
 
 ---
 
-
-
 ## Hands-On: Manual Upload
 
 Let's bring in our offline campaign budgets.
@@ -423,35 +420,6 @@ Let's bring in our offline campaign budgets.
 ::: {.notes}
 Guide them through the UI. Have them download the CSV file provided for the workshop. 
 Explain "Auto-detect schema"—this is BigQuery smartly figuring out if a column is text, a number, or a date without us having to code it manually.
-:::
-
-## Hands-On: Google Ads Data Transfer Service
-
-**The Automated Pipeline:**
-
-1. In Google Cloud Console, navigate to **BigQuery** > **Data Transfers**.
-2. Click **+ Create Transfer**.
-3. Choose **Google Ads** as the source type.
-4. Input your **Google Ads Customer ID** and select your `marketing_data` dataset.
-5. Set the schedule to **Daily** and click Save.
-
-::: {.callout-important}
-## Where is the Google Ads Data today?
-Because we are querying Google's public `ga4_obfuscated_sample_ecommerce` dataset, we cannot link it to a live Google Ads account. Furthermore, Google **does not** provide a matching public Google Ads dataset for this GA4 data. 
-
-To make our ROI math work today, our `campaign_budgets.csv` file is **simulating** the cost data that this Data Transfer Service would normally generate for you!
-:::
-
-::: {.notes}
-"Earlier, I mentioned that we use the Google Ads Data Transfer Service to get our true ad spend into BigQuery. Setting it up is incredibly easy—it’s just five clicks in the Data Transfers menu. 
-
-However, you might be asking: 'If it's so easy, why did we just manually upload a CSV file for our budgets?'
-
-The answer is sample data availability. We are using Google's public GA4 dataset today so we all have millions of rows to play with for free. But Google does not provide a matching public Google Ads dataset to go with it. 
-
-So, in this workshop, the CSV we just uploaded is acting as a stand-in. In the real world, you wouldn't upload a CSV; you would set up this Data Transfer, and BigQuery would automatically create daily tables with your exact ad spend, impressions, and clicks to join with your GA4 data.
-
-"Why do we set this to Daily instead of hourly? Two reasons. First, earlier we set our GA4 export to Daily. Since we are joining these two tables together to calculate ROI, our dashboard can only be as fast as our slowest dataset. Second, Google Ads data needs time to 'settle.' Google often refunds fraudulent clicks or processes delayed conversions hours later. Pulling the data once a night ensures we are reporting on clean, settled numbers without racking up massive cloud computing bills.""
 :::
 
 ---
