@@ -47,3 +47,5 @@ po/*~
 
 # RStudio Connect folder
 rsconnect/
+marketing-data-warehouse-dashboard-slides-speaker.html
+.DS_Store

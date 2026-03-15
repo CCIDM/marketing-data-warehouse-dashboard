@@ -29,26 +29,55 @@ format:
 
 ---
 
-## Introduction & Orientation
+## Introduction: The New Marketing Reality
 
 ::: {.callout-tip}
 ## Live slides available at <https://ccidm.github.io/marketing-data-warehouse-dashboard/marketing-data-warehouse-dashboard-slides.html>
 :::
 
-- **The Objective:** Moving from marketing theory to Marketing Operations.
-- **The Career Impact:** Digital marketing produces massive amounts of data. Spreadsheets crash; cloud databases scale. Knowing SQL and cloud architecture sets you apart from standard marketers.
-- **The Goal:** Gaining the ability to build a "single source of truth" and automate a decision-ready dashboard.
+**The Modern Marketing Problem:** We have too much data and not enough time. If you are manually copy-pasting metrics into Excel every Friday, you are losing to automation.
+
+:::: {.columns}
+
+::: {.column width="50%"}
+::: {.fragment}
+### 🛑 The "Spreadsheet" Way
+- **Siloed Data:** GA4, Google Ads, and budgets live in completely different windows.
+- **Fragile Tools:** Excel crashes or freezes when you hit 1,000,000 rows.
+- **Manual Labor:** Reactive, static reporting that is outdated the moment you hit "Send."
+:::
+:::
+
+::: {.column width="50%"}
+::: {.fragment}
+### 🚀 The "Cloud" Way
+- **Single Source of Truth:** All platforms joined together in one central hub.
+- **Infinite Scale:** Cloud databases process millions of events in seconds.
+- **Automated Intelligence:** Live dashboards that update themselves while you sleep.
+:::
+:::
+
+::::
+
+<br>
+
+::: {.fragment .fade-up}
+**🔥 The Career Impact:** Today, we move from **Marketing Theory** (The Art) to **Marketing Operations** (The Science). Mastering SQL and cloud architecture instantly separates you from 90% of entry-level applicants.
+:::
 
 ::: {.notes}
-"So, why are we here?
+"Welcome everyone. So, why are we here today? 
 
-In your classes, you spend a lot of time on Marketing Theory—the 4 Ps, consumer behavior, segmentation. That is the 'Art' of marketing.
+In your standard classes, you spend a lot of time on Marketing Theory—the 4 Ps, consumer behavior, segmentation. That is the 'Art' of marketing. But today, we are talking about the 'Science.'
 
-Today, we are moving into Marketing Operations. This is the 'Science.'
+[CLICK to reveal the Old Way]
+The reality of modern marketing is that it produces massive, terrifying amounts of data. If you go into your first job and try to manage millions of clicks, impressions, and purchases in Excel, it will crash. Furthermore, you'll spend your entire Friday manually copy-pasting numbers from GA4 to Google Ads just to build a report. 
 
-Employers aren't just looking for people who can copy-paste numbers from Google Analytics into Excel every week. They need people who can manage massive datasets and automate that reporting. Spreadsheets crash; cloud databases scale. Knowing how to write SQL and operate cloud architecture sets you apart from the average entry-level marketer. 
+[CLICK to reveal the Cloud Way]
+Today, we are moving you out of the 'Spreadsheet Way' and into the 'Cloud Way.' We are going to build a system where all your data lives in one place, scales infinitely, and updates automatically. 
 
-The goal is simple: We are moving you from 'Spreadsheet Cruncher' to 'Data Automator' by building a single source of truth today."
+[CLICK to reveal Career Impact]
+Employers are desperate for marketers who don't just understand ad copy, but who know how to engineer data pipelines. By the end of this session, you'll be moving from a 'Spreadsheet Cruncher' to a 'Data Automator.' Let's get started."
 :::
 
 ## Agenda & Data Roadmap
@@ -81,14 +110,18 @@ The goal is simple: We are moving you from 'Spreadsheet Cruncher' to 'Data Autom
 :::: {.columns}
 
 ::: {.column width="50%"}
+::: {.fragment}
 **What is Google Analytics 4?**
 GA4 is Google’s current web and app tracking platform. It logs what users do when they visit your site, where they came from, and what they buy.
-
+:::
+::: {.fragment}
 **The Old Way (Universal Analytics):**
 Historically, analytics tracked **"Sessions"** (a block of time a user spent on a site). Data was rigid and heavily aggregated.
 :::
+:::
 
 ::: {.column width="50%"}
+::: {.fragment}
 **The GA4 Way: Everything is an Event!**
 In GA4, the concept of a session takes a back seat. Now, **every single interaction is an Event.**
  
@@ -96,7 +129,10 @@ In GA4, the concept of a session takes a back seat. Now, **every single interact
 - Scrolling down? `scroll` event.
 - Buying a shirt? `purchase` event.
 
+:::
+::: {.fragment}
 **Why this matters for SQL:** Because GA4 just dumps millions of these raw events into BigQuery, it creates highly complex, nested data (Arrays) that requires SQL to unpack.
+:::
 :::
 
 ::::
@@ -146,6 +182,7 @@ CFU (Check for Understanding): Ask the room, "If your CMO asks you to compare th
 :::: {.columns}
 
 ::: {.column width="50%"}
+::: {.fragment}
 **The "Big Three" Cloud Providers**
 
 When companies say they "use the cloud," they are just renting massive computers from one of three tech giants:
@@ -154,16 +191,21 @@ When companies say they "use the cloud," they are just renting massive computers
 2. **Microsoft Azure**
 3. **Google Cloud Platform (GCP)** *(What we are using today)*
 :::
+:::
 
 ::: {.column width="50%"}
+::: {.fragment}
 **What is BigQuery?**
 BigQuery is a specific product *inside* Google Cloud. It is a fully managed **Enterprise Data Warehouse**.
 
 - **The AWS Equivalent:** Amazon Redshift
 - **The Azure Equivalent:** Azure Synapse
 - **Independent Competitor:** Snowflake
+:::
 
+::: {.fragment}
 *Think of Google Cloud as the giant digital office building, and BigQuery is the massive, ultra-secure filing cabinet we are renting inside of it.*
+:::
 :::
 
 ::::
@@ -279,22 +321,31 @@ Source: [CPP MSDM Career Outlook - Typical Job Titles](https://www.cppmsdm.com/c
 :::: {.columns}
 
 ::: {.column width="50%"}
+::: {.fragment}
 **Excel (Row-Based):**
 
 Reads data row by row, left to right. Great for finding *one specific customer's* entire profile.
-
+:::
+::: {.fragment}
 **BigQuery (Columnar):**
 
 Stores data by columns. If you only want to calculate "Total Revenue," the computer **completely ignores** the other 100 columns.
 :::
+:::
 
 ::: {.column width="50%"}
+::: {.fragment}
 **The Cost of BigQuery:**
 
 - **Storage:** ~$0.02 per Gigabyte.
 - **Compute (Querying):** The first **1 Terabyte (TB)** of data queried every month is **FREE**. After that, it's ~$6.25 per TB.
 
-🔥 **The Golden Rule:** `SELECT *` scans every single column in the database. In the real world, this costs your company real money. **Only SELECT the columns you need!**
+:::
+
+::: {.fragment}
+
+**The Golden Rule:** `SELECT *` scans every single column in the database. In the real world, this costs your company real money. **Only SELECT the columns you need!**
+:::
 :::
 
 ::::
@@ -307,39 +358,6 @@ Reassure them on costs: 1 Terabyte is a MASSIVE amount of data for free every si
 
 ---
 
-## The BigQuery Hierarchy
-### Finding Your Data's "Address"
-
-Think of BigQuery's structure just like the **file system on your laptop**:
-
-<br>
-
-1. **Project** 💻 *(The Hard Drive - e.g., `ccidm-workshop`)*
-2. **Dataset** 📁 *(The Folder - e.g., `marketing_data`)*
-3. **Table** 📊 *(The Spreadsheet File - e.g., `budget_lookup`)*
-
-<br>
-
-**Why does this matter?**  
-When you write a SQL query, the computer doesn't magically know where your data is. You have to give it the full "address" by connecting all three levels with periods: `` `project.dataset.table` ``
-
-```sql
--- Telling the database exactly which "file" to open:
-SELECT * 
-FROM `ccidm-spring2026.marketing_data.budget_lookup`
-```
-
-::: {.notes}
-"Students often get lost in cloud terminology. Let's make it simple. BigQuery organizes data exactly like your Mac or PC does.
-
-The Project is your entire hard drive. The Dataset is just a folder you created on that hard drive. And the Table is the actual Excel spreadsheet sitting inside that folder.
-
-Why do we care about this hierarchy? Because when we start writing SQL in a few minutes, you have to tell the computer exactly where to look. You do this in the FROM statement.
-
-Look at the code on the screen. Notice how we connect the address: HardDrive dot Folder dot File. If you remember this structure, you'll never get a 'Table Not Found' error when querying, because you'll always know how to give BigQuery the correct map to your data."
-:::
-
----
 
 ## Hands-On: BigQuery Orientation
 
@@ -456,23 +474,29 @@ So, in this workshop, the CSV we just uploaded is acting as a stand-in. In the r
 
 ---
 
-## Your First SQL Query: "Hello World"
+
+## Hands-On: Your First Query 
+
+
 ### What is SQL?
 
-**SQL (Structured Query Language)** is how we talk to databases. Today we are using **GoogleSQL** (BigQuery's specific dialect). Let's write a simple query together by hand to look at 5 raw website clicks.
+**SQL (Structured Query Language)** is how we talk to databases. Today we are using **GoogleSQL** (BigQuery's specific dialect). Before we type anything, let's look at the basic "grammar" of a query. If you know these three commands, you know 80% of SQL.
+
+* **`SELECT` (The Columns):** What data do I want to see? Think of this as hiding or showing columns in an Excel sheet.
+* **`FROM` (The Address):** Exactly which filing cabinet and folder is this data in?
+* **`WHERE` (The Rows):** How do I filter this data? Think of this as clicking the funnel icon in Excel to only show specific rows.
 
 ```sql
 SELECT 
-  event_date,
   event_name,
-  traffic_source.medium
-FROM `bigquery-public-data.ga4_obfuscated_sample_ecommerce.events_*`
+  traffic_source.medium, 
+  traffic_source.source,
+  event_date
+FROM `bigquery-public-data.ga4_obfuscated_sample_ecommerce.events_20201203`
 WHERE event_name = 'purchase'
-LIMIT 5;
+LIMIT 10;
 ```
 
-**What is the `*` doing in the FROM statement?**
-BigQuery partitions (splits) GA4 data into a new table for every single day. The `*` is a **Wildcard**. It tells BigQuery: *"Look at all the days at once."*
 
 ::: {.notes}
 Pacing: Have everyone type this manually. Do not let them copy-paste. Walk the room. 
@@ -480,6 +504,39 @@ Pacing: Have everyone type this manually. Do not let them copy-paste. Walk the r
 CFU (Check for Understanding): Ask the room: "Who can tell me what would happen if we deleted the `LIMIT 5` line?" (Answer: The query would return thousands of rows, taking longer and processing more bytes, which costs more money).
 
 Presenter trick: Intentionally make an error while typing this on screen (e.g. type `Selct` instead of `SELECT`). Let the red error box appear, and ask the class: "Can anyone read this error and tell me what I did wrong?" Emphasize that debugging is 80% of coding.
+:::
+
+---
+
+### Finding Your Data's "Address"
+
+Think of BigQuery's structure just like the **file system on your laptop**:
+
+<br>
+
+1. **Project** 💻 *(The Hard Drive - e.g., `ccidm-workshop`)*
+2. **Dataset** 📁 *(The Folder - e.g., `marketing_data`)*
+3. **Table** 📊 *(The Spreadsheet File - e.g., `budget_lookup`)*
+
+<br>
+
+**Why does this matter?**  
+When you write a SQL query, the computer doesn't magically know where your data is. You have to give it the full "address" by connecting all three levels with periods: `` `project.dataset.table` ``
+
+```sql
+-- Telling the database exactly which "file" to open:
+SELECT * 
+FROM `ccidm-spring2026.marketing_data.budget_lookup`
+```
+
+::: {.notes}
+"Students often get lost in cloud terminology. Let's make it simple. BigQuery organizes data exactly like your Mac or PC does.
+
+The Project is your entire hard drive. The Dataset is just a folder you created on that hard drive. And the Table is the actual Excel spreadsheet sitting inside that folder.
+
+Why do we care about this hierarchy? Because when we start writing SQL in a few minutes, you have to tell the computer exactly where to look. You do this in the FROM statement.
+
+Look at the code on the screen. Notice how we connect the address: HardDrive dot Folder dot File. If you remember this structure, you'll never get a 'Table Not Found' error when querying, because you'll always know how to give BigQuery the correct map to your data."
 :::
 
 ---
@@ -504,6 +561,9 @@ LIMIT 10;
 * **FROM:** Where is it?
 * **WHERE:** How do I filter it?
 * **GROUP BY:** How do I aggregate it?
+
+**What is the `*` doing in the FROM statement?**
+BigQuery partitions (splits) GA4 data into a new table for every single day. The `*` is a **Wildcard**. It tells BigQuery: *"Look at all the days at once."*
 
 ::: {.notes}
 Go ahead and modify your base script to match this one and hit 'Run'. While it runs, let's break down what we just did.
@@ -620,14 +680,37 @@ We take our Budget Spend, divide it by our GA4 Purchases, and use the `ROUND` fu
 
 ## AI-Assisted Querying (ChatGPT, Claude, Gemini)
 
-GA4 data is heavily nested (Arrays). Extracting a simple URL (`page_location`) requires a command called `UNNEST`, which is notoriously difficult. Let's use AI to write it for us.
+**Step 1: Get your database metadata (schema).**
 
-AI needs context to avoid hallucinating. **Step 1: Get your database metadata (schema).**
+AI needs context to avoid hallucinating. 
 
 ```sql
-SELECT column_name, data_type
-FROM `bigquery-public-data.ga4_obfuscated_sample_ecommerce.INFORMATION_SCHEMA.COLUMNS`
-WHERE table_name = 'events_20210131';
+#| code-fold: true
+WITH DateRange AS (
+  SELECT 
+    -- 1. Use Regex to cleanly extract just the 8-digit date
+    MIN(REGEXP_EXTRACT(table_name, r'^events_(\d{8})$')) AS earliest_date,
+    MAX(REGEXP_EXTRACT(table_name, r'^events_(\d{8})$')) AS latest_date
+  FROM 
+    `bigquery-public-data.ga4_obfuscated_sample_ecommerce.INFORMATION_SCHEMA.TABLES`
+  WHERE 
+    -- 2. Filter out intraday tables using Regex
+    REGEXP_CONTAINS(table_name, r'^events_\d{8}$')
+)
+SELECT 
+  c.column_name, 
+  c.data_type,
+  d.earliest_date,
+  d.latest_date
+FROM 
+  `bigquery-public-data.ga4_obfuscated_sample_ecommerce.INFORMATION_SCHEMA.COLUMNS` c
+CROSS JOIN 
+  DateRange d
+WHERE 
+  c.table_name = 'events_20210131'
+-- 3. Keep the columns in their original schema order
+ORDER BY 
+  c.ordinal_position;
 ```
 
 **Step 2: Copy the results table and give this prompt to any AI:**
@@ -662,6 +745,7 @@ Remind them: AI is just a predictive text engine. Always read the code it gives 
 **The Solution:** A view is a saved SQL query that acts as a "virtual table." We do the heavy lifting in BigQuery and save it. When Looker Studio connects, it sees a clean, Excel-like table.
 
 ```sql
+#| code-fold: true
 CREATE OR REPLACE VIEW `marketing_data.v_campaign_performance` AS 
 WITH ga4_aggregate AS (
   SELECT 
@@ -678,7 +762,8 @@ SELECT
   ga.date,
   b.channel,
   ga.purchases,
-  b.spend
+  b.spend,
+  ga.revenue
 FROM `marketing_data.budget_lookup` AS b
 LEFT JOIN ga4_aggregate AS ga
   ON b.channel = ga.channel
@@ -698,7 +783,7 @@ When we joined them, BigQuery duplicated the total budget onto every single day!
 ## Visualizing in Looker Studio
 ### Step 1: The Connection
 
-1. Go to[**lookerstudio.google.com**](https://lookerstudio.google.com).
+1. Go to [**lookerstudio.google.com**](https://lookerstudio.google.com).
 2. Create a **Blank Report**.
 3. Select **BigQuery** as your data connector.
 4. Navigate to: `ccidm-spring2026-sandbox` > `marketing_data` > `v_campaign_performance`.
@@ -741,7 +826,7 @@ Demonstrate this live. Add a date filter, set it to "Today", watch the dashboard
 ::: {.column width="50%"}
 **Calculated Fields:**
 
-- You can calculate `SUM(Revenue)/SUM(Spend)` directly in Looker Studio.
+- You can calculate `SUM(Revenue)/MAX(Spend)` directly in Looker Studio.
 - *Discussion: When should we calculate in SQL vs. Looker Studio?*
 :::
 
@@ -791,6 +876,7 @@ Next time, we move out of SQL and into R to do advanced cohort tracking and funn
 **Thank You!**
 
 **Helpful Links:**
+
 -[BigQuery Sandbox Setup](https://cloud.google.com/bigquery/docs/sandbox)
 -[GA4 BigQuery Export Schema](https://support.google.com/analytics/answer/7029846)
 - [Write SQL with Gemini](https://cloud.google.com/bigquery/docs/write-queries-with-gemini)

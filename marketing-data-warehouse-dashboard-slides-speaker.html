@@ -1069,8 +1069,8 @@ Jarrod Griffin
 
   <p class="date">3/15/2026</p>
 </section>
-<section id="introduction-orientation" class="slide level2">
-<h2>Introduction &amp; Orientation</h2>
+<section id="introduction-the-new-marketing-reality" class="slide level2">
+<h2>Introduction: The New Marketing Reality</h2>
 <div class="callout callout-tip callout-titled callout-style-default">
 <div class="callout-body">
 <div class="callout-title">
@@ -1084,17 +1084,37 @@ Jarrod Griffin
 </div>
 </div>
 </div>
+<p><strong>The Modern Marketing Problem:</strong> We have too much data and not enough time. If you are manually copy-pasting metrics into Excel every Friday, you are losing to automation.</p>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="fragment">
+<h3 id="the-spreadsheet-way">🛑 The “Spreadsheet” Way</h3>
 <ul>
-<li class="fragment"><strong>The Objective:</strong> Moving from marketing theory to Marketing Operations.</li>
-<li class="fragment"><strong>The Career Impact:</strong> Digital marketing produces massive amounts of data. Spreadsheets crash; cloud databases scale. Knowing SQL and cloud architecture sets you apart from standard marketers.</li>
-<li class="fragment"><strong>The Goal:</strong> Gaining the ability to build a “single source of truth” and automate a decision-ready dashboard.</li>
+<li class="fragment"><strong>Siloed Data:</strong> GA4, Google Ads, and budgets live in completely different windows.</li>
+<li class="fragment"><strong>Fragile Tools:</strong> Excel crashes or freezes when you hit 1,000,000 rows.</li>
+<li class="fragment"><strong>Manual Labor:</strong> Reactive, static reporting that is outdated the moment you hit “Send.”</li>
 </ul>
+</div>
+</div><div class="column" style="width:50%;">
+<div class="fragment">
+<h3 id="the-cloud-way">🚀 The “Cloud” Way</h3>
+<ul>
+<li class="fragment"><strong>Single Source of Truth:</strong> All platforms joined together in one central hub.</li>
+<li class="fragment"><strong>Infinite Scale:</strong> Cloud databases process millions of events in seconds.</li>
+<li class="fragment"><strong>Automated Intelligence:</strong> Live dashboards that update themselves while you sleep.</li>
+</ul>
+</div>
+</div></div>
+<p><br></p>
+<div class="fragment fade-up">
+<p><strong>🔥 The Career Impact:</strong> Today, we move from <strong>Marketing Theory</strong> (The Art) to <strong>Marketing Operations</strong> (The Science). Mastering SQL and cloud architecture instantly separates you from 90% of entry-level applicants.</p>
+</div>
 <aside class="notes">
-<p>“So, why are we here?</p>
-<p>In your classes, you spend a lot of time on Marketing Theory—the 4 Ps, consumer behavior, segmentation. That is the ‘Art’ of marketing.</p>
-<p>Today, we are moving into Marketing Operations. This is the ‘Science.’</p>
-<p>Employers aren’t just looking for people who can copy-paste numbers from Google Analytics into Excel every week. They need people who can manage massive datasets and automate that reporting. Spreadsheets crash; cloud databases scale. Knowing how to write SQL and operate cloud architecture sets you apart from the average entry-level marketer.</p>
-<p>The goal is simple: We are moving you from ‘Spreadsheet Cruncher’ to ‘Data Automator’ by building a single source of truth today.”</p>
+<p>“Welcome everyone. So, why are we here today?</p>
+<p>In your standard classes, you spend a lot of time on Marketing Theory—the 4 Ps, consumer behavior, segmentation. That is the ‘Art’ of marketing. But today, we are talking about the ‘Science.’</p>
+<p>[CLICK to reveal the Old Way] The reality of modern marketing is that it produces massive, terrifying amounts of data. If you go into your first job and try to manage millions of clicks, impressions, and purchases in Excel, it will crash. Furthermore, you’ll spend your entire Friday manually copy-pasting numbers from GA4 to Google Ads just to build a report.</p>
+<p>[CLICK to reveal the Cloud Way] Today, we are moving you out of the ‘Spreadsheet Way’ and into the ‘Cloud Way.’ We are going to build a system where all your data lives in one place, scales infinitely, and updates automatically.</p>
+<p>[CLICK to reveal Career Impact] Employers are desperate for marketers who don’t just understand ad copy, but who know how to engineer data pipelines. By the end of this session, you’ll be moving from a ‘Spreadsheet Cruncher’ to a ‘Data Automator.’ Let’s get started.”</p>
 <style type="text/css">
 span.MJX_Assistive_MathML {
 position:absolute!important;
@@ -1144,16 +1164,24 @@ display:block!important;
 <h3 id="the-event-driven-paradigm-shift">The Event-Driven Paradigm Shift</h3>
 <div class="columns">
 <div class="column" style="width:50%;">
+<div class="fragment">
 <p><strong>What is Google Analytics 4?</strong> GA4 is Google’s current web and app tracking platform. It logs what users do when they visit your site, where they came from, and what they buy.</p>
+</div>
+<div class="fragment">
 <p><strong>The Old Way (Universal Analytics):</strong> Historically, analytics tracked <strong>“Sessions”</strong> (a block of time a user spent on a site). Data was rigid and heavily aggregated.</p>
+</div>
 </div><div class="column" style="width:50%;">
+<div class="fragment">
 <p><strong>The GA4 Way: Everything is an Event!</strong> In GA4, the concept of a session takes a back seat. Now, <strong>every single interaction is an Event.</strong></p>
 <ul>
 <li class="fragment">Loading a page? <code>page_view</code> event.</li>
 <li class="fragment">Scrolling down? <code>scroll</code> event.</li>
 <li class="fragment">Buying a shirt? <code>purchase</code> event.</li>
 </ul>
+</div>
+<div class="fragment">
 <p><strong>Why this matters for SQL:</strong> Because GA4 just dumps millions of these raw events into BigQuery, it creates highly complex, nested data (Arrays) that requires SQL to unpack.</p>
+</div>
 </div></div>
 <aside class="notes">
 <p>“Before we talk about leaving GA4, we need to understand what it actually is and how it tracks data.</p>
@@ -1369,39 +1397,6 @@ overflow: hidden!important;
 display:block!important;
 }</style></aside>
 </section>
-<section id="the-bigquery-hierarchy" class="slide level2 scrollable">
-<h2>The BigQuery Hierarchy</h2>
-<h3 id="finding-your-datas-address">Finding Your Data’s “Address”</h3>
-<p>Think of BigQuery’s structure just like the <strong>file system on your laptop</strong>:</p>
-<p><br></p>
-<ol type="1">
-<li class="fragment"><strong>Project</strong> 💻 <em>(The Hard Drive - e.g., <code>ccidm-workshop</code>)</em></li>
-<li class="fragment"><strong>Dataset</strong> 📁 <em>(The Folder - e.g., <code>marketing_data</code>)</em></li>
-<li class="fragment"><strong>Table</strong> 📊 <em>(The Spreadsheet File - e.g., <code>budget_lookup</code>)</em></li>
-</ol>
-<p><br></p>
-<p><strong>Why does this matter?</strong><br>
-When you write a SQL query, the computer doesn’t magically know where your data is. You have to give it the full “address” by connecting all three levels with periods: <code>`project.dataset.table`</code></p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb1-1"><a href></a><span class="co">-- Telling the database exactly which &quot;file&quot; to open:</span></span>
-<span id="cb1-2"><a href></a><span class="kw">SELECT</span> <span class="op">*</span> </span>
-<span id="cb1-3"><a href></a><span class="kw">FROM</span> `ccidm<span class="op">-</span>spring2026.marketing_data.budget_lookup`</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<aside class="notes">
-<p>“Students often get lost in cloud terminology. Let’s make it simple. BigQuery organizes data exactly like your Mac or PC does.</p>
-<p>The Project is your entire hard drive. The Dataset is just a folder you created on that hard drive. And the Table is the actual Excel spreadsheet sitting inside that folder.</p>
-<p>Why do we care about this hierarchy? Because when we start writing SQL in a few minutes, you have to tell the computer exactly where to look. You do this in the FROM statement.</p>
-<p>Look at the code on the screen. Notice how we connect the address: HardDrive dot Folder dot File. If you remember this structure, you’ll never get a ‘Table Not Found’ error when querying, because you’ll always know how to give BigQuery the correct map to your data.”</p>
-<style type="text/css">
-span.MJX_Assistive_MathML {
-position:absolute!important;
-clip: rect(1px, 1px, 1px, 1px);
-padding: 1px 0 0 0!important;
-border: 0!important;
-height: 1px!important;
-width: 1px!important;
-overflow: hidden!important;
-display:block!important;
-}</style></aside>
-</section>
 <section id="hands-on-bigquery-orientation" class="slide level2 scrollable">
 <h2>Hands-On: BigQuery Orientation</h2>
 <h3 id="step-1-the-sandbox-setup">Step 1: The Sandbox Setup</h3>
@@ -1441,7 +1436,7 @@ display:block!important;
 </section>
 <section id="understanding-ingestion-pathways" class="slide level2">
 <h2>Understanding Ingestion Pathways</h2>
-<p>How does data get into our house?</p>
+<p>How does data get into our warehouse?</p>
 <ul>
 <li class="fragment"><strong>GA4 Export:</strong> Free, daily export of raw, event-level data.</li>
 <li class="fragment"><strong>Manual Upload:</strong> Manually upload data files (CSVs).</li>
@@ -1449,7 +1444,7 @@ display:block!important;
 <ul>
 <li class="fragment"><em>Why do we need this if Ads is already linked to GA4?</em></li>
 <li class="fragment">GA4 gives session/attribution data.</li>
-<li class="fragment">DTS gives impressions, clicks, and <em>cost</em> at the ad-group level. It takes just 3 clicks in the Cloud Console to automate overnight!</li>
+<li class="fragment">DTS gives impressions, clicks, and <em>cost</em> at the ad-group level.</li>
 </ul></li>
 </ul>
 <aside class="notes">
@@ -1497,10 +1492,33 @@ overflow: hidden!important;
 display:block!important;
 }</style></aside>
 </section>
+<section id="hands-on-manual-upload" class="slide level2 scrollable">
+<h2>Hands-On: Manual Upload</h2>
+<p>Let’s bring in our offline campaign budgets.</p>
+<ol type="1">
+<li class="fragment">Create a <strong>Dataset</strong> called <code>marketing_data</code>.</li>
+<li class="fragment">Click <strong>Add &gt; Local File</strong>.</li>
+<li class="fragment">Upload <a href="campaign_budgets.csv" download="campaign_budgets.csv"><code>campaign_budgets.csv</code></a>.</li>
+<li class="fragment">Check <strong>“Auto-detect schema”</strong>.</li>
+<li class="fragment">Name the table <code>budget_lookup</code>.</li>
+</ol>
+<aside class="notes">
+<p>Guide them through the UI. Have them download the CSV file provided for the workshop. Explain “Auto-detect schema”—this is BigQuery smartly figuring out if a column is text, a number, or a date without us having to code it manually.</p>
+<style type="text/css">
+span.MJX_Assistive_MathML {
+position:absolute!important;
+clip: rect(1px, 1px, 1px, 1px);
+padding: 1px 0 0 0!important;
+border: 0!important;
+height: 1px!important;
+width: 1px!important;
+overflow: hidden!important;
+display:block!important;
+}</style></aside>
+</section>
 <section id="hands-on-google-ads-data-transfer-service" class="slide level2 scrollable">
 <h2>Hands-On: Google Ads Data Transfer Service</h2>
-<h3 id="automating-ad-spend-ingestion">Automating Ad Spend Ingestion</h3>
-<p><strong>The Automated Pipeline (The “Real World” Way):</strong></p>
+<p><strong>The Automated Pipeline:</strong></p>
 <ol type="1">
 <li class="fragment">In Google Cloud Console, navigate to <strong>BigQuery</strong> &gt; <strong>Data Transfers</strong>.</li>
 <li class="fragment">Click <strong>+ Create Transfer</strong>.</li>
@@ -1540,18 +1558,27 @@ overflow: hidden!important;
 display:block!important;
 }</style></aside>
 </section>
-<section id="hands-on-manual-upload" class="slide level2 scrollable">
-<h2>Hands-On: Manual Upload</h2>
-<p>Let’s bring in our offline campaign budgets.</p>
-<ol type="1">
-<li class="fragment">Create a <strong>Dataset</strong> called <code>marketing_data</code>.</li>
-<li class="fragment">Click <strong>Add &gt; Local File</strong>.</li>
-<li class="fragment">Upload <a href="campaign_budgets.csv" download="campaign_budgets.csv"><code>campaign_budgets.csv</code></a>.</li>
-<li class="fragment">Check <strong>“Auto-detect schema”</strong>.</li>
-<li class="fragment">Name the table <code>budget_lookup</code>.</li>
-</ol>
+<section id="hands-on-your-first-query" class="slide level2">
+<h2>Hands-On: Your First Query</h2>
+<h3 id="what-is-sql">What is SQL?</h3>
+<p><strong>SQL (Structured Query Language)</strong> is how we talk to databases. Today we are using <strong>GoogleSQL</strong> (BigQuery’s specific dialect). Before we type anything, let’s look at the basic “grammar” of a query. If you know these three commands, you know 80% of SQL.</p>
+<ul>
+<li class="fragment"><strong><code>SELECT</code> (The Columns):</strong> What data do I want to see? Think of this as hiding or showing columns in an Excel sheet.</li>
+<li class="fragment"><strong><code>FROM</code> (The Address):</strong> Exactly which filing cabinet and folder is this data in?</li>
+<li class="fragment"><strong><code>WHERE</code> (The Rows):</strong> How do I filter this data? Think of this as clicking the funnel icon in Excel to only show specific rows.</li>
+</ul>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb1-1"><a href></a><span class="kw">SELECT</span> </span>
+<span id="cb1-2"><a href></a>  event_name,</span>
+<span id="cb1-3"><a href></a>  traffic_source.medium, </span>
+<span id="cb1-4"><a href></a>  traffic_source.<span class="kw">source</span>,</span>
+<span id="cb1-5"><a href></a>  event_date</span>
+<span id="cb1-6"><a href></a><span class="kw">FROM</span> `bigquery<span class="op">-</span><span class="kw">public</span><span class="op">-</span><span class="kw">data</span>.ga4_obfuscated_sample_ecommerce.events_20201203`</span>
+<span id="cb1-7"><a href></a><span class="kw">WHERE</span> event_name <span class="op">=</span> <span class="st">&#39;purchase&#39;</span></span>
+<span id="cb1-8"><a href></a><span class="kw">LIMIT</span> <span class="dv">10</span>;</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <aside class="notes">
-<p>Guide them through the UI. Have them download the CSV file provided for the workshop. Explain “Auto-detect schema”—this is BigQuery smartly figuring out if a column is text, a number, or a date without us having to code it manually.</p>
+<p>Pacing: Have everyone type this manually. Do not let them copy-paste. Walk the room.</p>
+<p>CFU (Check for Understanding): Ask the room: “Who can tell me what would happen if we deleted the <code>LIMIT 5</code> line?” (Answer: The query would return thousands of rows, taking longer and processing more bytes, which costs more money).</p>
+<p>Presenter trick: Intentionally make an error while typing this on screen (e.g. type <code>Selct</code> instead of <code>SELECT</code>). Let the red error box appear, and ask the class: “Can anyone read this error and tell me what I did wrong?” Emphasize that debugging is 80% of coding.</p>
 <style type="text/css">
 span.MJX_Assistive_MathML {
 position:absolute!important;
@@ -1564,22 +1591,27 @@ overflow: hidden!important;
 display:block!important;
 }</style></aside>
 </section>
-<section id="your-first-sql-query-hello-world" class="slide level2">
-<h2>Your First SQL Query: “Hello World”</h2>
-<h3 id="what-is-sql">What is SQL?</h3>
-<p><strong>SQL (Structured Query Language)</strong> is how we talk to databases. Today we are using <strong>GoogleSQL</strong> (BigQuery’s specific dialect). Let’s write a simple query together by hand to look at 5 raw website clicks.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb2-1"><a href></a><span class="kw">SELECT</span> </span>
-<span id="cb2-2"><a href></a>  event_date,</span>
-<span id="cb2-3"><a href></a>  event_name,</span>
-<span id="cb2-4"><a href></a>  traffic_source.medium</span>
-<span id="cb2-5"><a href></a><span class="kw">FROM</span> `bigquery<span class="op">-</span><span class="kw">public</span><span class="op">-</span><span class="kw">data</span>.ga4_obfuscated_sample_ecommerce.events_<span class="op">*</span>`</span>
-<span id="cb2-6"><a href></a><span class="kw">WHERE</span> event_name <span class="op">=</span> <span class="st">&#39;purchase&#39;</span></span>
-<span id="cb2-7"><a href></a><span class="kw">LIMIT</span> <span class="dv">5</span>;</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p><strong>What is the <code>*</code> doing in the FROM statement?</strong> BigQuery partitions (splits) GA4 data into a new table for every single day. The <code>*</code> is a <strong>Wildcard</strong>. It tells BigQuery: <em>“Look at all the days at once.”</em></p>
+<section class="slide level2 scrollable">
+
+<h3 id="finding-your-datas-address">Finding Your Data’s “Address”</h3>
+<p>Think of BigQuery’s structure just like the <strong>file system on your laptop</strong>:</p>
+<p><br></p>
+<ol type="1">
+<li class="fragment"><strong>Project</strong> 💻 <em>(The Hard Drive - e.g., <code>ccidm-workshop</code>)</em></li>
+<li class="fragment"><strong>Dataset</strong> 📁 <em>(The Folder - e.g., <code>marketing_data</code>)</em></li>
+<li class="fragment"><strong>Table</strong> 📊 <em>(The Spreadsheet File - e.g., <code>budget_lookup</code>)</em></li>
+</ol>
+<p><br></p>
+<p><strong>Why does this matter?</strong><br>
+When you write a SQL query, the computer doesn’t magically know where your data is. You have to give it the full “address” by connecting all three levels with periods: <code>`project.dataset.table`</code></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb2-1"><a href></a><span class="co">-- Telling the database exactly which &quot;file&quot; to open:</span></span>
+<span id="cb2-2"><a href></a><span class="kw">SELECT</span> <span class="op">*</span> </span>
+<span id="cb2-3"><a href></a><span class="kw">FROM</span> `ccidm<span class="op">-</span>spring2026.marketing_data.budget_lookup`</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <aside class="notes">
-<p>Pacing: Have everyone type this manually. Do not let them copy-paste. Walk the room.</p>
-<p>CFU (Check for Understanding): Ask the room: “Who can tell me what would happen if we deleted the <code>LIMIT 5</code> line?” (Answer: The query would return thousands of rows, taking longer and processing more bytes, which costs more money).</p>
-<p>Presenter trick: Intentionally make an error while typing this on screen (e.g. type <code>Selct</code> instead of <code>SELECT</code>). Let the red error box appear, and ask the class: “Can anyone read this error and tell me what I did wrong?” Emphasize that debugging is 80% of coding.</p>
+<p>“Students often get lost in cloud terminology. Let’s make it simple. BigQuery organizes data exactly like your Mac or PC does.</p>
+<p>The Project is your entire hard drive. The Dataset is just a folder you created on that hard drive. And the Table is the actual Excel spreadsheet sitting inside that folder.</p>
+<p>Why do we care about this hierarchy? Because when we start writing SQL in a few minutes, you have to tell the computer exactly where to look. You do this in the FROM statement.</p>
+<p>Look at the code on the screen. Notice how we connect the address: HardDrive dot Folder dot File. If you remember this structure, you’ll never get a ‘Table Not Found’ error when querying, because you’ll always know how to give BigQuery the correct map to your data.”</p>
 <style type="text/css">
 span.MJX_Assistive_MathML {
 position:absolute!important;
@@ -1610,6 +1642,7 @@ display:block!important;
 <li class="fragment"><strong>WHERE:</strong> How do I filter it?</li>
 <li class="fragment"><strong>GROUP BY:</strong> How do I aggregate it?</li>
 </ul>
+<p><strong>What is the <code>*</code> doing in the FROM statement?</strong> BigQuery partitions (splits) GA4 data into a new table for every single day. The <code>*</code> is a <strong>Wildcard</strong>. It tells BigQuery: <em>“Look at all the days at once.”</em></p>
 <aside class="notes">
 <p>Go ahead and modify your base script to match this one and hit ‘Run’. While it runs, let’s break down what we just did.</p>
 <p>If you master these four lines, you know 90% of the SQL you will ever need in your marketing career.</p>
@@ -1722,11 +1755,34 @@ display:block!important;
 </section>
 <section id="ai-assisted-querying-chatgpt-claude-gemini" class="slide level2">
 <h2>AI-Assisted Querying (ChatGPT, Claude, Gemini)</h2>
-<p>GA4 data is heavily nested (Arrays). Extracting a simple URL (<code>page_location</code>) requires a command called <code>UNNEST</code>, which is notoriously difficult. Let’s use AI to write it for us.</p>
-<p>AI needs context to avoid hallucinating. <strong>Step 1: Get your database metadata (schema).</strong></p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb5-1"><a href></a><span class="kw">SELECT</span> column_name, data_type</span>
-<span id="cb5-2"><a href></a><span class="kw">FROM</span> `bigquery<span class="op">-</span><span class="kw">public</span><span class="op">-</span><span class="kw">data</span>.ga4_obfuscated_sample_ecommerce.INFORMATION_SCHEMA.COLUMNS`</span>
-<span id="cb5-3"><a href></a><span class="kw">WHERE</span> table_name <span class="op">=</span> <span class="st">&#39;events_20210131&#39;</span>;</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Step 1: Get your database metadata (schema).</strong></p>
+<p>AI needs context to avoid hallucinating.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb5-1"><a href></a>#| code<span class="op">-</span>fold: <span class="kw">true</span></span>
+<span id="cb5-2"><a href></a><span class="kw">WITH</span> DateRange <span class="kw">AS</span> (</span>
+<span id="cb5-3"><a href></a>  <span class="kw">SELECT</span> </span>
+<span id="cb5-4"><a href></a>    <span class="co">-- 1. Use Regex to cleanly extract just the 8-digit date</span></span>
+<span id="cb5-5"><a href></a>    <span class="fu">MIN</span>(REGEXP_EXTRACT(table_name, r<span class="st">&#39;^events_(\d{8})$&#39;</span>)) <span class="kw">AS</span> earliest_date,</span>
+<span id="cb5-6"><a href></a>    <span class="fu">MAX</span>(REGEXP_EXTRACT(table_name, r<span class="st">&#39;^events_(\d{8})$&#39;</span>)) <span class="kw">AS</span> latest_date</span>
+<span id="cb5-7"><a href></a>  <span class="kw">FROM</span> </span>
+<span id="cb5-8"><a href></a>    `bigquery<span class="op">-</span><span class="kw">public</span><span class="op">-</span><span class="kw">data</span>.ga4_obfuscated_sample_ecommerce.INFORMATION_SCHEMA.TABLES`</span>
+<span id="cb5-9"><a href></a>  <span class="kw">WHERE</span> </span>
+<span id="cb5-10"><a href></a>    <span class="co">-- 2. Filter out intraday tables using Regex</span></span>
+<span id="cb5-11"><a href></a>    REGEXP_CONTAINS(table_name, r<span class="st">&#39;^events_\d{8}$&#39;</span>)</span>
+<span id="cb5-12"><a href></a>)</span>
+<span id="cb5-13"><a href></a><span class="kw">SELECT</span> </span>
+<span id="cb5-14"><a href></a>  c.column_name, </span>
+<span id="cb5-15"><a href></a>  c.data_type,</span>
+<span id="cb5-16"><a href></a>  d.earliest_date,</span>
+<span id="cb5-17"><a href></a>  d.latest_date</span>
+<span id="cb5-18"><a href></a><span class="kw">FROM</span> </span>
+<span id="cb5-19"><a href></a>  `bigquery<span class="op">-</span><span class="kw">public</span><span class="op">-</span><span class="kw">data</span>.ga4_obfuscated_sample_ecommerce.INFORMATION_SCHEMA.COLUMNS` c</span>
+<span id="cb5-20"><a href></a><span class="kw">CROSS</span> <span class="kw">JOIN</span> </span>
+<span id="cb5-21"><a href></a>  DateRange d</span>
+<span id="cb5-22"><a href></a><span class="kw">WHERE</span> </span>
+<span id="cb5-23"><a href></a>  c.table_name <span class="op">=</span> <span class="st">&#39;events_20210131&#39;</span></span>
+<span id="cb5-24"><a href></a><span class="co">-- 3. Keep the columns in their original schema order</span></span>
+<span id="cb5-25"><a href></a><span class="kw">ORDER</span> <span class="kw">BY</span> </span>
+<span id="cb5-26"><a href></a>  c.ordinal_position;</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p><strong>Step 2: Copy the results table and give this prompt to any AI:</strong></p>
 <blockquote>
 <p><em>“I am querying a BigQuery GA4 dataset. Attached is my schema. Write a query using the <code>events_*</code> wildcard table. Find the total number of ‘purchase’ events grouped by the user’s device category. Be sure to include a date range to limit data costs.”</em></p>
@@ -1758,27 +1814,29 @@ display:block!important;
 <h3 id="the-bridge-to-bi-creating-a-view">The Bridge to BI: Creating a View</h3>
 <p><strong>The Problem:</strong> Looker Studio is a visualization layer, not a data transformation engine. If we force Looker to perform our complex <code>LEFT JOIN</code> on the fly, the dashboard will be incredibly slow.</p>
 <p><strong>The Solution:</strong> A view is a saved SQL query that acts as a “virtual table.” We do the heavy lifting in BigQuery and save it. When Looker Studio connects, it sees a clean, Excel-like table.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb6-1"><a href></a><span class="kw">CREATE</span> <span class="kw">OR</span> <span class="kw">REPLACE</span> <span class="kw">VIEW</span> `marketing_data.v_campaign_performance` <span class="kw">AS</span> </span>
-<span id="cb6-2"><a href></a><span class="kw">WITH</span> ga4_aggregate <span class="kw">AS</span> (</span>
-<span id="cb6-3"><a href></a>  <span class="kw">SELECT</span> </span>
-<span id="cb6-4"><a href></a>    PARSE_DATE(<span class="st">&#39;%Y%m%d&#39;</span>, event_date) <span class="kw">AS</span> <span class="dt">date</span>, <span class="co">-- Turns &quot;20210131&quot; into a real Date</span></span>
-<span id="cb6-5"><a href></a>    traffic_source.medium <span class="kw">AS</span> channel,</span>
-<span id="cb6-6"><a href></a>    <span class="fu">COUNT</span>(event_name) <span class="kw">AS</span> purchases,</span>
-<span id="cb6-7"><a href></a>    <span class="fu">SUM</span>(ecommerce.purchase_revenue) <span class="kw">AS</span> revenue</span>
-<span id="cb6-8"><a href></a>  <span class="kw">FROM</span> `bigquery<span class="op">-</span><span class="kw">public</span><span class="op">-</span><span class="kw">data</span>.ga4_obfuscated_sample_ecommerce.events_<span class="op">*</span>`</span>
-<span id="cb6-9"><a href></a>  <span class="kw">WHERE</span> event_name <span class="op">=</span> <span class="st">&#39;purchase&#39;</span></span>
-<span id="cb6-10"><a href></a>  <span class="kw">GROUP</span> <span class="kw">BY</span> <span class="dt">date</span>, channel</span>
-<span id="cb6-11"><a href></a>)</span>
-<span id="cb6-12"><a href></a></span>
-<span id="cb6-13"><a href></a><span class="kw">SELECT</span> </span>
-<span id="cb6-14"><a href></a>  ga.<span class="dt">date</span>,</span>
-<span id="cb6-15"><a href></a>  b.channel,</span>
-<span id="cb6-16"><a href></a>  ga.purchases,</span>
-<span id="cb6-17"><a href></a>  b.spend</span>
-<span id="cb6-18"><a href></a><span class="kw">FROM</span> `marketing_data.budget_lookup` <span class="kw">AS</span> b</span>
-<span id="cb6-19"><a href></a><span class="kw">LEFT</span> <span class="kw">JOIN</span> ga4_aggregate <span class="kw">AS</span> ga</span>
-<span id="cb6-20"><a href></a>  <span class="kw">ON</span> b.channel <span class="op">=</span> ga.channel</span>
-<span id="cb6-21"><a href></a><span class="kw">ORDER</span> <span class="kw">BY</span> ga.<span class="dt">date</span> <span class="kw">DESC</span>;</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb6-1"><a href></a>#| code<span class="op">-</span>fold: <span class="kw">true</span></span>
+<span id="cb6-2"><a href></a><span class="kw">CREATE</span> <span class="kw">OR</span> <span class="kw">REPLACE</span> <span class="kw">VIEW</span> `marketing_data.v_campaign_performance` <span class="kw">AS</span> </span>
+<span id="cb6-3"><a href></a><span class="kw">WITH</span> ga4_aggregate <span class="kw">AS</span> (</span>
+<span id="cb6-4"><a href></a>  <span class="kw">SELECT</span> </span>
+<span id="cb6-5"><a href></a>    PARSE_DATE(<span class="st">&#39;%Y%m%d&#39;</span>, event_date) <span class="kw">AS</span> <span class="dt">date</span>, <span class="co">-- Turns &quot;20210131&quot; into a real Date</span></span>
+<span id="cb6-6"><a href></a>    traffic_source.medium <span class="kw">AS</span> channel,</span>
+<span id="cb6-7"><a href></a>    <span class="fu">COUNT</span>(event_name) <span class="kw">AS</span> purchases,</span>
+<span id="cb6-8"><a href></a>    <span class="fu">SUM</span>(ecommerce.purchase_revenue) <span class="kw">AS</span> revenue</span>
+<span id="cb6-9"><a href></a>  <span class="kw">FROM</span> `bigquery<span class="op">-</span><span class="kw">public</span><span class="op">-</span><span class="kw">data</span>.ga4_obfuscated_sample_ecommerce.events_<span class="op">*</span>`</span>
+<span id="cb6-10"><a href></a>  <span class="kw">WHERE</span> event_name <span class="op">=</span> <span class="st">&#39;purchase&#39;</span></span>
+<span id="cb6-11"><a href></a>  <span class="kw">GROUP</span> <span class="kw">BY</span> <span class="dt">date</span>, channel</span>
+<span id="cb6-12"><a href></a>)</span>
+<span id="cb6-13"><a href></a></span>
+<span id="cb6-14"><a href></a><span class="kw">SELECT</span> </span>
+<span id="cb6-15"><a href></a>  ga.<span class="dt">date</span>,</span>
+<span id="cb6-16"><a href></a>  b.channel,</span>
+<span id="cb6-17"><a href></a>  ga.purchases,</span>
+<span id="cb6-18"><a href></a>  b.spend,</span>
+<span id="cb6-19"><a href></a>  b.revenue</span>
+<span id="cb6-20"><a href></a><span class="kw">FROM</span> `marketing_data.budget_lookup` <span class="kw">AS</span> b</span>
+<span id="cb6-21"><a href></a><span class="kw">LEFT</span> <span class="kw">JOIN</span> ga4_aggregate <span class="kw">AS</span> ga</span>
+<span id="cb6-22"><a href></a>  <span class="kw">ON</span> b.channel <span class="op">=</span> ga.channel</span>
+<span id="cb6-23"><a href></a><span class="kw">ORDER</span> <span class="kw">BY</span> ga.<span class="dt">date</span> <span class="kw">DESC</span>;</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <aside class="notes">
 <p>Explain the new addition: <code>PARSE_DATE</code>. GA4 doesn’t store dates as dates; it stores them as text strings (<code>20210131</code>). If we don’t parse it, Looker Studio won’t let us build a timeline.</p>
 <p><strong>Crucial Data Engineering Concept (The Fan-Out):</strong> Notice we removed the <code>CPA</code> calculation from this SQL. Why? Because our budget CSV only had one row per channel with the <em>total</em> spend, but our GA4 data now has <em>daily</em> rows. When we joined them, BigQuery duplicated the total budget onto every single day! If we don’t handle this carefully in Looker Studio, our total spend will look 30x larger than it actually is. This is why in the real world, budget files should always include a Date column so we can join on BOTH Channel and Date!</p>
@@ -1798,7 +1856,7 @@ display:block!important;
 <h2>Visualizing in Looker Studio</h2>
 <h3 id="step-1-the-connection">Step 1: The Connection</h3>
 <ol type="1">
-<li class="fragment">Go to<a href="https://lookerstudio.google.com"><strong>lookerstudio.google.com</strong></a>.</li>
+<li class="fragment">Go to <a href="https://lookerstudio.google.com"><strong>lookerstudio.google.com</strong></a>.</li>
 <li class="fragment">Create a <strong>Blank Report</strong>.</li>
 <li class="fragment">Select <strong>BigQuery</strong> as your data connector.</li>
 <li class="fragment">Navigate to: <code>ccidm-spring2026-sandbox</code> &gt; <code>marketing_data</code> &gt; <code>v_campaign_performance</code>.</li>
@@ -1914,7 +1972,8 @@ display:block!important;
 <section id="qa-and-resources" class="slide level2">
 <h2>Q&amp;A and Resources</h2>
 <p><strong>Thank You!</strong></p>
-<p><strong>Helpful Links:</strong> -<a href="https://cloud.google.com/bigquery/docs/sandbox">BigQuery Sandbox Setup</a> -<a href="https://support.google.com/analytics/answer/7029846">GA4 BigQuery Export Schema</a> - <a href="https://cloud.google.com/bigquery/docs/write-queries-with-gemini">Write SQL with Gemini</a> -<a href="https://support.google.com/looker-studio/answer/6370296">Looker Studio Connection Guide</a></p>
+<p><strong>Helpful Links:</strong></p>
+<p>-<a href="https://cloud.google.com/bigquery/docs/sandbox">BigQuery Sandbox Setup</a> -<a href="https://support.google.com/analytics/answer/7029846">GA4 BigQuery Export Schema</a> - <a href="https://cloud.google.com/bigquery/docs/write-queries-with-gemini">Write SQL with Gemini</a> -<a href="https://support.google.com/looker-studio/answer/6370296">Looker Studio Connection Guide</a></p>
 <p><em>Center for Customer Insight and Digital Marketing</em></p>
 <aside class="notes">
 <p>Open the floor for any final questions. Tell them they can access these links in the workshop materials to reference later. Thank them for coming!</p>
