@@ -2,7 +2,7 @@
 title: "Building a Marketing Data Warehouse & Dashboard"
 subtitle: "BigQuery, SQL, & Looker Studio"
 author: "Jarrod Griffin"
-institute: "College of Business Administration - Cal Poly Pomona"
+institute: "College of Business Administration - Cal Poly Pomona - CCIDM"
 date: "today"
 date-format: "M/D/YYYY"
 format:
@@ -387,6 +387,7 @@ How does data get into our warehouse?
 
 - **GA4 Export:** Free, daily export of raw, event-level data.
 - **Manual Upload:** Manually upload data files (CSVs).
+  - *Examples:* Lookup Tables, Financial Targets, Budgets
 - **Google Ads Data Transfer Service (DTS):** 
   - *Why do we need this if Ads is already linked to GA4?*
   - GA4 gives session/attribution data.
@@ -453,11 +454,15 @@ Explain "Auto-detect schema"—this is BigQuery smartly figuring out if a column
 4. Input your **Google Ads Customer ID** and select your `marketing_data` dataset.
 5. Set the schedule to **Daily** and click Save.
 
+::: {.fragment}
+
 ::: {.callout-important}
 ## Where is the Google Ads Data today?
 Because we are querying Google's public `ga4_obfuscated_sample_ecommerce` dataset, we cannot link it to a live Google Ads account. Furthermore, Google **does not** provide a matching public Google Ads dataset for this GA4 data. 
 
 To make our ROI math work today, our `campaign_budgets.csv` file is **simulating** the cost data that this Data Transfer Service would normally generate for you!
+:::
+
 :::
 
 ::: {.notes}
@@ -475,16 +480,64 @@ So, in this workshop, the CSV we just uploaded is acting as a stand-in. In the r
 ---
 
 
+## Accessing our GA4 Sample Data
+### Getting Google's Public E-commerce Dataset
+
+:::: {.columns}
+
+::: {.column width="50%"}
+::: {.fragment}
+**Method 1: The Direct Link**
+
+The fastest way to load the dataset is to follow this direct link straight to the Google Cloud Console:
+
+[**🔗 Open GA4 Sample Dataset**](https://console.cloud.google.com/bigquery?ws=!1m4!1m3!3m2!1sbigquery-public-data!2sga4_obfuscated_sample_ecommerce)
+:::
+:::
+
+::: {.column width="50%"}
+::: {.fragment}
+**Method 2: The Explorer Pane**
+
+If you want to find it manually inside BigQuery:
+
+1. Go to the **Explorer** pane on the left side of your screen.
+2. Click **+ Add** (Add Data).
+3. Scroll to the bottom and click **Star a project by name**.
+4. Input `bigquery-public-data` and press Enter.
+5. Expand the newly pinned project and locate `ga4_obfuscated_sample_ecommerce`.
+:::
+:::
+
+::::
+
+::: {.notes}
+"Now that we know how data gets into BigQuery, let's load up the sample dataset we will be querying today. 
+
+Since our own GA4 connection takes 24 hours to generate its first export, Google provides a massive, real-world e-commerce dataset for us to practice on right now.
+
+You have two ways to access it. You can either click the direct link in the slides, or you can use the Explorer pane to 'star' Google's public data project. I highly recommend the Explorer method (Method 2) because it teaches you how to navigate the BigQuery interface, and it pins all of Google's public datasets to your sidebar for future projects."
+:::
+
+
+---
+
 ## Hands-On: Your First Query 
 
 
 ### What is SQL?
 
+::: {.fragment}
+
 **SQL (Structured Query Language)** is how we talk to databases. Today we are using **GoogleSQL** (BigQuery's specific dialect). Before we type anything, let's look at the basic "grammar" of a query. If you know these three commands, you know 80% of SQL.
+
+:::
 
 * **`SELECT` (The Columns):** What data do I want to see? Think of this as hiding or showing columns in an Excel sheet.
 * **`FROM` (The Address):** Exactly which filing cabinet and folder is this data in?
 * **`WHERE` (The Rows):** How do I filter this data? Think of this as clicking the funnel icon in Excel to only show specific rows.
+
+::: {.fragment}
 
 ```sql
 SELECT 
@@ -496,7 +549,7 @@ FROM `bigquery-public-data.ga4_obfuscated_sample_ecommerce.events_20201203`
 WHERE event_name = 'purchase'
 LIMIT 10;
 ```
-
+:::
 
 ::: {.notes}
 Pacing: Have everyone type this manually. Do not let them copy-paste. Walk the room. 
@@ -520,14 +573,22 @@ Think of BigQuery's structure just like the **file system on your laptop**:
 
 <br>
 
+::: {.fragment}
+
 **Why does this matter?**  
 When you write a SQL query, the computer doesn't magically know where your data is. You have to give it the full "address" by connecting all three levels with periods: `` `project.dataset.table` ``
+
+:::
+
+::: {.fragment}
 
 ```sql
 -- Telling the database exactly which "file" to open:
 SELECT * 
 FROM `ccidm-spring2026.marketing_data.budget_lookup`
 ```
+
+:::
 
 ::: {.notes}
 "Students often get lost in cloud terminology. Let's make it simple. BigQuery organizes data exactly like your Mac or PC does.
@@ -546,6 +607,13 @@ Look at the code on the screen. Notice how we connect the address: HardDrive dot
 
 Now let's expand our query. We will add math and grouping.
 
+* **SELECT:** What do I want?
+* **FROM:** Where is it?
+* **WHERE:** How do I filter it?
+* **GROUP BY:** How do I aggregate it?
+
+::: {.fragment}
+
 ```sql
 SELECT 
   traffic_source.medium,
@@ -557,13 +625,16 @@ ORDER BY total_revenue DESC
 LIMIT 10;
 ```
 
-* **SELECT:** What do I want?
-* **FROM:** Where is it?
-* **WHERE:** How do I filter it?
-* **GROUP BY:** How do I aggregate it?
+:::
+
+
+
+::: {.fragment}
 
 **What is the `*` doing in the FROM statement?**
 BigQuery partitions (splits) GA4 data into a new table for every single day. The `*` is a **Wildcard**. It tells BigQuery: *"Look at all the days at once."*
+
+:::
 
 ::: {.notes}
 Go ahead and modify your base script to match this one and hit 'Run'. While it runs, let's break down what we just did.
@@ -608,6 +679,13 @@ GROUP BY (The Pivot Table): This is the ultimate marketer's tool. In our raw dat
 
 ::::
 
+:::{.fragment}
+::: {.callout-tip}
+GoogleSQL Syntax Refrence: [https://docs.cloud.google.com/bigquery/docs/reference/standard-sql/query-syntax](https://docs.cloud.google.com/bigquery/docs/reference/standard-sql/query-syntax)
+
+:::
+:::
+
 ::: {.notes}
 "Here is a crucial concept that will save you hours of debugging. We write SQL from top to bottom, starting with SELECT. But the computer does not read it that way.
 
@@ -625,6 +703,8 @@ Why does this matter? If you rename a column 'Total Revenue' in your SELECT stat
 ### Calculating True ROI
 
 Let's combine our live web performance with our static budgets using a `WITH` clause to create a temporary table!
+
+:::{.fragment}
 
 ```sql
 WITH ga4_aggregate AS (
@@ -646,6 +726,8 @@ LEFT JOIN ga4_aggregate AS ga
   ON b.channel = ga.channel
 ORDER BY CPA ASC;
 ```
+
+:::
 
 ::: {.notes}
 > Alright everyone, this is the main event. We call this **'The Marketer's Join.'** Up until now, we’ve looked at our GA4 performance data, and we’ve looked at our offline budget CSV. Now, we are going to smash them together to calculate our true Cost Per Acquisition (CPA) on the fly.
@@ -684,6 +766,8 @@ We take our Budget Spend, divide it by our GA4 Purchases, and use the `ROUND` fu
 
 AI needs context to avoid hallucinating. 
 
+:::{.fragment}
+
 ```sql
 #| code-fold: true
 WITH DateRange AS (
@@ -713,9 +797,15 @@ ORDER BY
   c.ordinal_position;
 ```
 
+:::
+
+:::{.fragment}
+
 **Step 2: Copy the results table and give this prompt to any AI:**
 
 > *"I am querying a BigQuery GA4 dataset. Attached is my schema. Write a query using the `events_*` wildcard table. Find the total number of 'purchase' events grouped by the user's device category. Be sure to include a date range to limit data costs."*
+
+:::
 
 . . .
 
@@ -740,9 +830,19 @@ Remind them: AI is just a predictive text engine. Always read the code it gives 
 ## Modeling for Reporting
 ### The Bridge to BI: Creating a View
 
+:::{.fragment}
+
 **The Problem:** Looker Studio is a visualization layer, not a data transformation engine. If we force Looker to perform our complex `LEFT JOIN` on the fly, the dashboard will be incredibly slow.
 
+:::
+
+:::{.fragment}
+
 **The Solution:** A view is a saved SQL query that acts as a "virtual table." We do the heavy lifting in BigQuery and save it. When Looker Studio connects, it sees a clean, Excel-like table.
+
+:::
+
+:::{.fragment}
 
 ```sql
 #| code-fold: true
@@ -769,6 +869,8 @@ LEFT JOIN ga4_aggregate AS ga
   ON b.channel = ga.channel
 ORDER BY ga.date DESC;
 ```
+
+:::
 
 ::: {.notes}
 Explain the new addition: `PARSE_DATE`. GA4 doesn't store dates as dates; it stores them as text strings (`20210131`). If we don't parse it, Looker Studio won't let us build a timeline.
@@ -877,10 +979,10 @@ Next time, we move out of SQL and into R to do advanced cohort tracking and funn
 
 **Helpful Links:**
 
--[BigQuery Sandbox Setup](https://cloud.google.com/bigquery/docs/sandbox)
--[GA4 BigQuery Export Schema](https://support.google.com/analytics/answer/7029846)
+- [BigQuery Sandbox Setup](https://cloud.google.com/bigquery/docs/sandbox)
+- [GA4 BigQuery Export Schema](https://support.google.com/analytics/answer/7029846)
 - [Write SQL with Gemini](https://cloud.google.com/bigquery/docs/write-queries-with-gemini)
--[Looker Studio Connection Guide](https://support.google.com/looker-studio/answer/6370296)
+- [Looker Studio Connection Guide](https://support.google.com/looker-studio/answer/6370296)
 
 *Center for Customer Insight and Digital Marketing*
 

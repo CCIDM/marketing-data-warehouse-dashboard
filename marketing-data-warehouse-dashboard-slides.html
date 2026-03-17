@@ -1062,12 +1062,12 @@ margin-right: 0; }
 Jarrod Griffin 
 </div>
         <p class="quarto-title-affiliation">
-            College of Business Administration - Cal Poly Pomona
+            College of Business Administration - Cal Poly Pomona - CCIDM
           </p>
     </div>
 </div>
 
-  <p class="date">3/15/2026</p>
+  <p class="date">3/17/2026</p>
 </section>
 <section id="introduction-the-new-marketing-reality" class="slide level2">
 <h2>Introduction: The New Marketing Reality</h2>
@@ -1453,7 +1453,10 @@ display:block!important;
 <p>How does data get into our warehouse?</p>
 <ul>
 <li class="fragment"><strong>GA4 Export:</strong> Free, daily export of raw, event-level data.</li>
-<li class="fragment"><strong>Manual Upload:</strong> Manually upload data files (CSVs).</li>
+<li class="fragment"><strong>Manual Upload:</strong> Manually upload data files (CSVs).
+<ul>
+<li class="fragment"><em>Examples:</em> Lookup Tables, Financial Targets, Budgets</li>
+</ul></li>
 <li class="fragment"><strong>Google Ads Data Transfer Service (DTS):</strong>
 <ul>
 <li class="fragment"><em>Why do we need this if Ads is already linked to GA4?</em></li>
@@ -1540,6 +1543,7 @@ display:block!important;
 <li class="fragment">Input your <strong>Google Ads Customer ID</strong> and select your <code>marketing_data</code> dataset.</li>
 <li class="fragment">Set the schedule to <strong>Daily</strong> and click Save.</li>
 </ol>
+<div class="fragment">
 <div class="callout callout-important callout-titled callout-style-default">
 <div class="callout-body">
 <div class="callout-title">
@@ -1551,6 +1555,7 @@ display:block!important;
 <div class="callout-content">
 <p>Because we are querying Google’s public <code>ga4_obfuscated_sample_ecommerce</code> dataset, we cannot link it to a live Google Ads account. Furthermore, Google <strong>does not</strong> provide a matching public Google Ads dataset for this GA4 data.</p>
 <p>To make our ROI math work today, our <code>campaign_budgets.csv</code> file is <strong>simulating</strong> the cost data that this Data Transfer Service would normally generate for you!</p>
+</div>
 </div>
 </div>
 </div>
@@ -1572,15 +1577,23 @@ overflow: hidden!important;
 display:block!important;
 }</style></aside>
 </section>
+<section id="accessing-our-ga4-sample-data" class="slide level2">
+<h2>Accessing our GA4 Sample Data</h2>
+<p>Visit this link: https://console.cloud.google.com/bigquery?ws=!1m4!1m3!3m2!1sbigquery-public-data!2sga4_obfuscated_sample_ecommerce</p>
+<p>Or you can go to the explorer pane in bigquery, click add data, then at the bottom, click “Star a project by name”, and input bigquery-public-data. it will then be found in your explorer</p>
+</section>
 <section id="hands-on-your-first-query" class="slide level2">
 <h2>Hands-On: Your First Query</h2>
 <h3 id="what-is-sql">What is SQL?</h3>
+<div class="fragment">
 <p><strong>SQL (Structured Query Language)</strong> is how we talk to databases. Today we are using <strong>GoogleSQL</strong> (BigQuery’s specific dialect). Before we type anything, let’s look at the basic “grammar” of a query. If you know these three commands, you know 80% of SQL.</p>
+</div>
 <ul>
 <li class="fragment"><strong><code>SELECT</code> (The Columns):</strong> What data do I want to see? Think of this as hiding or showing columns in an Excel sheet.</li>
 <li class="fragment"><strong><code>FROM</code> (The Address):</strong> Exactly which filing cabinet and folder is this data in?</li>
 <li class="fragment"><strong><code>WHERE</code> (The Rows):</strong> How do I filter this data? Think of this as clicking the funnel icon in Excel to only show specific rows.</li>
 </ul>
+<div class="fragment">
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb1-1"><a href></a><span class="kw">SELECT</span> </span>
 <span id="cb1-2"><a href></a>  event_name,</span>
 <span id="cb1-3"><a href></a>  traffic_source.medium, </span>
@@ -1589,6 +1602,7 @@ display:block!important;
 <span id="cb1-6"><a href></a><span class="kw">FROM</span> `bigquery<span class="op">-</span><span class="kw">public</span><span class="op">-</span><span class="kw">data</span>.ga4_obfuscated_sample_ecommerce.events_20201203`</span>
 <span id="cb1-7"><a href></a><span class="kw">WHERE</span> event_name <span class="op">=</span> <span class="st">&#39;purchase&#39;</span></span>
 <span id="cb1-8"><a href></a><span class="kw">LIMIT</span> <span class="dv">10</span>;</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
 <aside class="notes">
 <p>Pacing: Have everyone type this manually. Do not let them copy-paste. Walk the room.</p>
 <p>CFU (Check for Understanding): Ask the room: “Who can tell me what would happen if we deleted the <code>LIMIT 5</code> line?” (Answer: The query would return thousands of rows, taking longer and processing more bytes, which costs more money).</p>
@@ -1616,11 +1630,15 @@ display:block!important;
 <li class="fragment"><strong>Table</strong> 📊 <em>(The Spreadsheet File - e.g., <code>budget_lookup</code>)</em></li>
 </ol>
 <p><br></p>
+<div class="fragment">
 <p><strong>Why does this matter?</strong><br>
 When you write a SQL query, the computer doesn’t magically know where your data is. You have to give it the full “address” by connecting all three levels with periods: <code>`project.dataset.table`</code></p>
+</div>
+<div class="fragment">
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb2-1"><a href></a><span class="co">-- Telling the database exactly which &quot;file&quot; to open:</span></span>
 <span id="cb2-2"><a href></a><span class="kw">SELECT</span> <span class="op">*</span> </span>
 <span id="cb2-3"><a href></a><span class="kw">FROM</span> `ccidm<span class="op">-</span>spring2026.marketing_data.budget_lookup`</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
 <aside class="notes">
 <p>“Students often get lost in cloud terminology. Let’s make it simple. BigQuery organizes data exactly like your Mac or PC does.</p>
 <p>The Project is your entire hard drive. The Dataset is just a folder you created on that hard drive. And the Table is the actual Excel spreadsheet sitting inside that folder.</p>
@@ -1642,6 +1660,13 @@ display:block!important;
 <h2>Querying Data with SQL</h2>
 <h3 id="core-sql-patterns">Core SQL Patterns</h3>
 <p>Now let’s expand our query. We will add math and grouping.</p>
+<ul>
+<li class="fragment"><strong>SELECT:</strong> What do I want?</li>
+<li class="fragment"><strong>FROM:</strong> Where is it?</li>
+<li class="fragment"><strong>WHERE:</strong> How do I filter it?</li>
+<li class="fragment"><strong>GROUP BY:</strong> How do I aggregate it?</li>
+</ul>
+<div class="fragment">
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb3-1"><a href></a><span class="kw">SELECT</span> </span>
 <span id="cb3-2"><a href></a>  traffic_source.medium,</span>
 <span id="cb3-3"><a href></a>  <span class="fu">SUM</span>(ecommerce.purchase_revenue) <span class="kw">as</span> total_revenue</span>
@@ -1650,13 +1675,10 @@ display:block!important;
 <span id="cb3-6"><a href></a><span class="kw">GROUP</span> <span class="kw">BY</span> traffic_source.medium</span>
 <span id="cb3-7"><a href></a><span class="kw">ORDER</span> <span class="kw">BY</span> total_revenue <span class="kw">DESC</span></span>
 <span id="cb3-8"><a href></a><span class="kw">LIMIT</span> <span class="dv">10</span>;</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<ul>
-<li class="fragment"><strong>SELECT:</strong> What do I want?</li>
-<li class="fragment"><strong>FROM:</strong> Where is it?</li>
-<li class="fragment"><strong>WHERE:</strong> How do I filter it?</li>
-<li class="fragment"><strong>GROUP BY:</strong> How do I aggregate it?</li>
-</ul>
+</div>
+<div class="fragment">
 <p><strong>What is the <code>*</code> doing in the FROM statement?</strong> BigQuery partitions (splits) GA4 data into a new table for every single day. The <code>*</code> is a <strong>Wildcard</strong>. It tells BigQuery: <em>“Look at all the days at once.”</em></p>
+</div>
 <aside class="notes">
 <p>Go ahead and modify your base script to match this one and hit ‘Run’. While it runs, let’s break down what we just did.</p>
 <p>If you master these four lines, you know 90% of the SQL you will ever need in your marketing career.</p>
@@ -1699,6 +1721,21 @@ display:block!important;
 <li class="fragment"><code>ORDER BY</code> (Sorts the final list)</li>
 </ol>
 </div></div>
+<div class="fragment">
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Tip</strong></p>
+</div>
+<div class="callout-content">
+<p>GoogleSQL Syntax Refrence: <a href="https://docs.cloud.google.com/bigquery/docs/reference/standard-sql/query-syntax">https://docs.cloud.google.com/bigquery/docs/reference/standard-sql/query-syntax</a></p>
+</div>
+</div>
+</div>
+</div>
 <aside class="notes">
 <p>“Here is a crucial concept that will save you hours of debugging. We write SQL from top to bottom, starting with SELECT. But the computer does not read it that way.</p>
 <p>The computer starts at FROM—it has to find the filing cabinet first. Then it moves to WHERE to throw away rows it doesn’t need. Then it groups the data. It doesn’t actually look at your SELECT statement until step 4!</p>
@@ -1719,6 +1756,7 @@ display:block!important;
 <h2>The “Marketer’s Join”</h2>
 <h3 id="calculating-true-roi">Calculating True ROI</h3>
 <p>Let’s combine our live web performance with our static budgets using a <code>WITH</code> clause to create a temporary table!</p>
+<div class="fragment">
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb4-1"><a href></a><span class="kw">WITH</span> ga4_aggregate <span class="kw">AS</span> (</span>
 <span id="cb4-2"><a href></a>  <span class="kw">SELECT</span> </span>
 <span id="cb4-3"><a href></a>    traffic_source.medium <span class="kw">AS</span> channel,</span>
@@ -1737,6 +1775,7 @@ display:block!important;
 <span id="cb4-16"><a href></a><span class="kw">LEFT</span> <span class="kw">JOIN</span> ga4_aggregate <span class="kw">AS</span> ga</span>
 <span id="cb4-17"><a href></a>  <span class="kw">ON</span> b.channel <span class="op">=</span> ga.channel</span>
 <span id="cb4-18"><a href></a><span class="kw">ORDER</span> <span class="kw">BY</span> CPA <span class="kw">ASC</span>;</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
 <aside class="notes">
 <blockquote>
 <p>Alright everyone, this is the main event. We call this <strong>‘The Marketer’s Join.’</strong> Up until now, we’ve looked at our GA4 performance data, and we’ve looked at our offline budget CSV. Now, we are going to smash them together to calculate our true Cost Per Acquisition (CPA) on the fly.</p>
@@ -1771,6 +1810,7 @@ display:block!important;
 <h2>AI-Assisted Querying (ChatGPT, Claude, Gemini)</h2>
 <p><strong>Step 1: Get your database metadata (schema).</strong></p>
 <p>AI needs context to avoid hallucinating.</p>
+<div class="fragment">
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb5-1"><a href></a>#| code<span class="op">-</span>fold: <span class="kw">true</span></span>
 <span id="cb5-2"><a href></a><span class="kw">WITH</span> DateRange <span class="kw">AS</span> (</span>
 <span id="cb5-3"><a href></a>  <span class="kw">SELECT</span> </span>
@@ -1797,10 +1837,13 @@ display:block!important;
 <span id="cb5-24"><a href></a><span class="co">-- 3. Keep the columns in their original schema order</span></span>
 <span id="cb5-25"><a href></a><span class="kw">ORDER</span> <span class="kw">BY</span> </span>
 <span id="cb5-26"><a href></a>  c.ordinal_position;</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="fragment">
 <p><strong>Step 2: Copy the results table and give this prompt to any AI:</strong></p>
 <blockquote>
 <p><em>“I am querying a BigQuery GA4 dataset. Attached is my schema. Write a query using the <code>events_*</code> wildcard table. Find the total number of ‘purchase’ events grouped by the user’s device category. Be sure to include a date range to limit data costs.”</em></p>
 </blockquote>
+</div>
 <div class="fragment">
 <p><strong>Always validate the logic before running!</strong></p>
 <aside class="notes">
@@ -1826,8 +1869,13 @@ display:block!important;
 <section id="modeling-for-reporting" class="slide level2">
 <h2>Modeling for Reporting</h2>
 <h3 id="the-bridge-to-bi-creating-a-view">The Bridge to BI: Creating a View</h3>
+<div class="fragment">
 <p><strong>The Problem:</strong> Looker Studio is a visualization layer, not a data transformation engine. If we force Looker to perform our complex <code>LEFT JOIN</code> on the fly, the dashboard will be incredibly slow.</p>
+</div>
+<div class="fragment">
 <p><strong>The Solution:</strong> A view is a saved SQL query that acts as a “virtual table.” We do the heavy lifting in BigQuery and save it. When Looker Studio connects, it sees a clean, Excel-like table.</p>
+</div>
+<div class="fragment">
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode numberSource sql number-lines code-with-copy"><code class="sourceCode sql"><span id="cb6-1"><a href></a>#| code<span class="op">-</span>fold: <span class="kw">true</span></span>
 <span id="cb6-2"><a href></a><span class="kw">CREATE</span> <span class="kw">OR</span> <span class="kw">REPLACE</span> <span class="kw">VIEW</span> `marketing_data.v_campaign_performance` <span class="kw">AS</span> </span>
 <span id="cb6-3"><a href></a><span class="kw">WITH</span> ga4_aggregate <span class="kw">AS</span> (</span>
@@ -1851,6 +1899,7 @@ display:block!important;
 <span id="cb6-21"><a href></a><span class="kw">LEFT</span> <span class="kw">JOIN</span> ga4_aggregate <span class="kw">AS</span> ga</span>
 <span id="cb6-22"><a href></a>  <span class="kw">ON</span> b.channel <span class="op">=</span> ga.channel</span>
 <span id="cb6-23"><a href></a><span class="kw">ORDER</span> <span class="kw">BY</span> ga.<span class="dt">date</span> <span class="kw">DESC</span>;</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
 <aside class="notes">
 <p>Explain the new addition: <code>PARSE_DATE</code>. GA4 doesn’t store dates as dates; it stores them as text strings (<code>20210131</code>). If we don’t parse it, Looker Studio won’t let us build a timeline.</p>
 <p><strong>Crucial Data Engineering Concept (The Fan-Out):</strong> Notice we removed the <code>CPA</code> calculation from this SQL. Why? Because our budget CSV only had one row per channel with the <em>total</em> spend, but our GA4 data now has <em>daily</em> rows. When we joined them, BigQuery duplicated the total budget onto every single day! If we don’t handle this carefully in Looker Studio, our total spend will look 30x larger than it actually is. This is why in the real world, budget files should always include a Date column so we can join on BOTH Channel and Date!</p>
@@ -1987,7 +2036,12 @@ display:block!important;
 <h2>Q&amp;A and Resources</h2>
 <p><strong>Thank You!</strong></p>
 <p><strong>Helpful Links:</strong></p>
-<p>-<a href="https://cloud.google.com/bigquery/docs/sandbox">BigQuery Sandbox Setup</a> -<a href="https://support.google.com/analytics/answer/7029846">GA4 BigQuery Export Schema</a> - <a href="https://cloud.google.com/bigquery/docs/write-queries-with-gemini">Write SQL with Gemini</a> -<a href="https://support.google.com/looker-studio/answer/6370296">Looker Studio Connection Guide</a></p>
+<ul>
+<li class="fragment"><a href="https://cloud.google.com/bigquery/docs/sandbox">BigQuery Sandbox Setup</a></li>
+<li class="fragment"><a href="https://support.google.com/analytics/answer/7029846">GA4 BigQuery Export Schema</a></li>
+<li class="fragment"><a href="https://cloud.google.com/bigquery/docs/write-queries-with-gemini">Write SQL with Gemini</a></li>
+<li class="fragment"><a href="https://support.google.com/looker-studio/answer/6370296">Looker Studio Connection Guide</a></li>
+</ul>
 <p><em>Center for Customer Insight and Digital Marketing</em></p>
 <aside class="notes">
 <p>Open the floor for any final questions. Tell them they can access these links in the workshop materials to reference later. Thank them for coming!</p>
