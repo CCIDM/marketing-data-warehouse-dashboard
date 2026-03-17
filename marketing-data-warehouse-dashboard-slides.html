@@ -1577,10 +1577,44 @@ overflow: hidden!important;
 display:block!important;
 }</style></aside>
 </section>
-<section id="accessing-our-ga4-sample-data" class="slide level2">
+<section id="accessing-our-ga4-sample-data" class="slide level2 scrollable">
 <h2>Accessing our GA4 Sample Data</h2>
-<p>Visit this link: https://console.cloud.google.com/bigquery?ws=!1m4!1m3!3m2!1sbigquery-public-data!2sga4_obfuscated_sample_ecommerce</p>
-<p>Or you can go to the explorer pane in bigquery, click add data, then at the bottom, click “Star a project by name”, and input bigquery-public-data. it will then be found in your explorer</p>
+<h3 id="getting-googles-public-e-commerce-dataset">Getting Google’s Public E-commerce Dataset</h3>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="fragment">
+<p><strong>Method 1: The Direct Link</strong></p>
+<p>The fastest way to load the dataset is to follow this direct link straight to the Google Cloud Console:</p>
+<p><a href="https://console.cloud.google.com/bigquery?ws=!1m4!1m3!3m2!1sbigquery-public-data!2sga4_obfuscated_sample_ecommerce"><strong>🔗 Open GA4 Sample Dataset</strong></a></p>
+</div>
+</div><div class="column" style="width:50%;">
+<div class="fragment">
+<p><strong>Method 2: The Explorer Pane</strong></p>
+<p>If you want to find it manually inside BigQuery:</p>
+<ol type="1">
+<li class="fragment">Go to the <strong>Explorer</strong> pane on the left side of your screen.</li>
+<li class="fragment">Click <strong>+ Add</strong> (Add Data).</li>
+<li class="fragment">Scroll to the bottom and click <strong>Star a project by name</strong>.</li>
+<li class="fragment">Input <code>bigquery-public-data</code> and press Enter.</li>
+<li class="fragment">Expand the newly pinned project and locate <code>ga4_obfuscated_sample_ecommerce</code>.</li>
+</ol>
+</div>
+</div></div>
+<aside class="notes">
+<p>“Now that we know how data gets into BigQuery, let’s load up the sample dataset we will be querying today.</p>
+<p>Since our own GA4 connection takes 24 hours to generate its first export, Google provides a massive, real-world e-commerce dataset for us to practice on right now.</p>
+<p>You have two ways to access it. You can either click the direct link in the slides, or you can use the Explorer pane to ‘star’ Google’s public data project. I highly recommend the Explorer method (Method 2) because it teaches you how to navigate the BigQuery interface, and it pins all of Google’s public datasets to your sidebar for future projects.”</p>
+<style type="text/css">
+span.MJX_Assistive_MathML {
+position:absolute!important;
+clip: rect(1px, 1px, 1px, 1px);
+padding: 1px 0 0 0!important;
+border: 0!important;
+height: 1px!important;
+width: 1px!important;
+overflow: hidden!important;
+display:block!important;
+}</style></aside>
 </section>
 <section id="hands-on-your-first-query" class="slide level2">
 <h2>Hands-On: Your First Query</h2>
@@ -3122,7 +3156,7 @@ window.QuartoSupport = function () {
 'autoAnimateUnmatched': true,
 'jumpToSlide': true,
 'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleScrollView(event)\"><kbd>r</kbd> Scroll View Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"5\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
-'multiplex': {"secret":null,"id":"d230095bf5a3c0581399ae3f27a4568803e6d92d3c835c68f612dd1aa144d306","url":"https://multiplex.up.railway.app/"},
+'multiplex': {"secret":null,"id":"e21ea4c861bfe47c9a468659b5c16909f20a4e6e3e47bf2df22aee40635b44d6","url":"https://multiplex.up.railway.app/"},
 'smaller': false,
  
         // Display controls in the bottom right corner
