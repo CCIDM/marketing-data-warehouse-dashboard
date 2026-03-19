@@ -155,7 +155,7 @@ This is incredibly powerful for tracking custom user journeys, but it creates a 
 ::: {.column width="50%"}
 **🚨 The Limits of GA4 (The UI)**
 
-- **Data Expiration:** GA4 deletes user-level data after **14 months**. You lose year-over-year historical context.
+- **Data Expiration:** GA4 deletes user-level data after **2-14 months**. You lose year-over-year historical context.
 - **The "Black Box":** The GA4 UI uses Machine Learning to model and estimate missing data. You aren't always seeing raw truth.
 - **Rigid Templates:** You are limited to Google's pre-made reports. You cannot easily blend in your offline CRM or ad spend data.
 :::
